@@ -42,9 +42,16 @@ int ssm_client_unix(const char *mcast_group, const char *ssm_source, int receivi
 #endif // _WIN32
 
 
-#ifndef IP_ADD_SOURCE_MEMBERSHIP
+#ifndef IP_ADD_SOURCE_MEMBERSHIP // Let's fix android missing definitions
 #define IP_ADD_SOURCE_MEMBERSHIP 39 /* ip_mreq_source: join source group */
 #define IP_DROP_SOURCE_MEMBERSHIP 40 /* ip_mreq_source: leave source group */
+
+/* Internet address.  */
+typedef unsigned int in_addr_t;
+struct in_addr
+  {
+    in_addr_t s_addr;
+  };
 
 struct ip_mreq_source
   {
