@@ -113,6 +113,12 @@ int main() {
     }
     else {
         printf("Invalid choice! \n");
+/* FIX ME - I don't like this solution */
+#ifdef _WIN32
+        system("cls");
+#else
+        system("clear");
+#endif
     }
    } while (strcmp(choice,"4") != 0);
 
