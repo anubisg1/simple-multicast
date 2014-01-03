@@ -29,6 +29,7 @@ int main() {
    int delay = 1;
    char choice[100] = "0";
 
+   printf("simple-multicast version 0.1.2\n\n");
    do {
     printf("Menu:\n\n");
     printf("1. Multicast Server\n");
