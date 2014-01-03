@@ -24,12 +24,12 @@
 
 int mcast_client_unix(const char *mcast_group, int receiving_port) {
 
-  socklen_t addrlen;               // Lenght of ecv_sin
-  char message[100];               // Sent message string
-  SOCKET sock = INVALID_SOCKET;    // Datagram window socket
-  struct ip_mreq mreq;             // Used in adding or dropping multicasting addresses
-  SOCKADDR_IN local_sin,           // Local socket's address
-              recv_sin;            // Holds the source address upon recvfrom function returns
+  socklen_t addrlen;                  // Length of recv_sin
+  char message[100];                  // ASCII string
+  SOCKET sock = INVALID_SOCKET;       // Datagram window socket
+  struct ip_mreq mreq;                // Used in adding or dropping multicasting addresses
+  SOCKADDR_IN local_sin,              // Local socket's address
+              recv_sin;               // Holds the source address upon recvfrom function returns
 
   /* Create a datagram socket, sock. */
   if ((sock = socket(AF_INET, SOCK_DGRAM, 0)) == INVALID_SOCKET) {
@@ -44,7 +44,7 @@ int mcast_client_unix(const char *mcast_group, int receiving_port) {
   local_sin.sin_addr.s_addr = htonl(INADDR_ANY);
 
   /* Associate the local address with the sock */
-  if (bind(sock, (struct sockaddr *)&local_sin, sizeof(local_sin)) == SOCKET_ERROR ) {
+  if (bind(sock, (struct sockaddr *)&local_sin, sizeof(local_sin)) == SOCKET_ERROR) {
     perror("bind");
     return FALSE;
   }

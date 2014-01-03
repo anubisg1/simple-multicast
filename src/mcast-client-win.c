@@ -48,7 +48,7 @@ int mcast_client_win(const char *mcast_group, int receiving_port) {
   local_sin.sin_port = htons(receiving_port);
   local_sin.sin_addr.s_addr = htonl(INADDR_ANY);
 
-  /* Fill in the destination address information */
+  /* Associate the local address with the sock */
   if (bind(sock, (struct sockaddr *)&local_sin, sizeof(local_sin)) == SOCKET_ERROR) {
     perror("bind");
     closesocket(sock);
