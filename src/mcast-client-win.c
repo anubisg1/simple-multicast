@@ -21,7 +21,7 @@
 #include <stdio.h>                  // Required for printf() and sprintf()
 #include "mcast-client.h"           // Required for socks specific headers
 
-int mcast_client_win(const char *mcast_group, int receiving_port ) {
+int mcast_client_win(const char *mcast_group, int receiving_port) {
 
   socklen_t addrlen;                  // Length of recv_sin
   char message[100];                  // ASCII string
@@ -65,18 +65,16 @@ int mcast_client_win(const char *mcast_group, int receiving_port ) {
     return FALSE;
   }
 
-  addrlen = sizeof (recv_sin);
+  addrlen = sizeof(recv_sin);
 
   /* Let's receive our traffic */
   while (1) {
-    if (recvfrom (sock, message, sizeof(message), 0, (struct sockaddr *)&recv_sin, &addrlen) == SOCKET_ERROR) {
+    if (recvfrom(sock, message, sizeof(message), 0, (struct sockaddr *)&recv_sin, &addrlen) == SOCKET_ERROR) {
         perror("recvfrom");
         closesocket(sock);
         return FALSE;
     }
-    else  {
-        printf("%s: message received = \"%s\"\n", inet_ntoa(recv_sin.sin_addr), message);
-    }
+    printf("%s: message received = \"%s\"\n", inet_ntoa(recv_sin.sin_addr), message);
   }
 
   // Disable receiving on sock before closing it.
