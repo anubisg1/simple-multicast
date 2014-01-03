@@ -18,58 +18,58 @@
 
 #ifndef _WIN32
 
-#include <stdio.h>                  // Required for printf() and sprintf()
-#include <strings.h>                // Required for bzero() and strcasecmp()
+#include <stdio.h>                  // Required for printf() and perror()
+#include <strings.h>                // Required for bzero()
 #include "mcast-client.h"           // Required for socks specific headers
 
 int mcast_client_unix(const char *mcast_group, int receiving_port) {
 
-   socklen_t addrlen;               // Lenght of ecv_sin
-   char message[100];               // Sent message string
-   SOCKET sock;                     // Datagram window socket
-   struct ip_mreq mreq;             // Used in adding or dropping multicasting addresses
-   struct sockaddr_in local_sin,    // Local socket address
-                      recv_sin;     // Holds the source address.
+  socklen_t addrlen;               // Lenght of ecv_sin
+  char message[100];               // Sent message string
+  SOCKET sock;                     // Datagram window socket
+  struct ip_mreq mreq;             // Used in adding or dropping multicasting addresses
+  struct sockaddr_in local_sin,    // Local socket's address
+              recv_sin;            // Holds the source address upon recvfrom function returns
 
    /* Initialize socket */
-   sock = socket(AF_INET, SOCK_DGRAM, 0);
-   if (sock == SOCKET_ERROR) {
-     perror("socket");
-     return FALSE;
-   }
+  sock = socket(AF_INET, SOCK_DGRAM, 0);
+  if (sock == SOCKET_ERROR) {
+    perror("socket");
+    return FALSE;
+  }
 
-   /* Fill in the destination address information */
-   bzero((char *)&local_sin, sizeof(local_sin));
-   local_sin.sin_family = AF_INET;
-   local_sin.sin_port = htons(receiving_port);
-   local_sin.sin_addr.s_addr = htonl(INADDR_ANY);
+  /* Fill in the destination address information */
+  bzero((char *)&local_sin, sizeof(local_sin));
+  local_sin.sin_family = AF_INET;
+  local_sin.sin_port = htons(receiving_port);
+  local_sin.sin_addr.s_addr = htonl(INADDR_ANY);
 
-   /* Associate the local address with the sock */
-   if (bind(sock, (struct sockaddr *) &local_sin, sizeof(local_sin)) == SOCKET_ERROR ) {
-       perror("bind");
-       return FALSE;
-   }
+  /* Associate the local address with the sock */
+  if (bind(sock, (struct sockaddr *) &local_sin, sizeof(local_sin)) == SOCKET_ERROR ) {
+    perror("bind");
+    return FALSE;
+  }
 
-   /* Join the multicast group from which to receive datagrams. */
-   mreq.imr_multiaddr.s_addr = inet_addr(mcast_group);
-   mreq.imr_interface.s_addr = htonl(INADDR_ANY);
+  /* Join the multicast group from which to receive datagrams. */
+  mreq.imr_multiaddr.s_addr = inet_addr(mcast_group);
+  mreq.imr_interface.s_addr = htonl(INADDR_ANY);
 
-   if (setsockopt(sock, IPPROTO_IP, IP_ADD_MEMBERSHIP, &mreq, sizeof(mreq)) == SOCKET_ERROR) {
-       perror("setsockopt mreq");
-       return FALSE;
-   }
+  if (setsockopt(sock, IPPROTO_IP, IP_ADD_MEMBERSHIP, &mreq, sizeof(mreq)) == SOCKET_ERROR) {
+    perror("setsockopt mreq");
+    return FALSE;
+  }
 
-   addrlen = sizeof(recv_sin);
+  addrlen = sizeof(recv_sin);
 
-   /* Let's receive our traffic */
-   while (1) {
-       if (recvfrom(sock, message, sizeof(message), 0, (struct sockaddr *) &recv_sin, &addrlen) == SOCKET_ERROR ) {
-          perror("recvfrom");
-          return FALSE;
-       }
-       printf("%s: message received = \"%s\"\n", inet_ntoa(recv_sin.sin_addr), message);
-   }
-   return TRUE;
+  /* Let's receive our traffic */
+  while (1) {
+      if (recvfrom(sock, message, sizeof(message), 0, (struct sockaddr *) &recv_sin, &addrlen) == SOCKET_ERROR ) {
+        perror("recvfrom");
+        return FALSE;
+      }
+      printf("%s: message received = \"%s\"\n", inet_ntoa(recv_sin.sin_addr), message);
+  }
+  return TRUE;
 }
 
 #endif // _WIN32
