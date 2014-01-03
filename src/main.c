@@ -30,6 +30,13 @@ int main() {
    int delay = 1;
    char choice[100] = "0";
 
+/* FIX ME - I don't like this solution */
+#ifdef _WIN32
+   system("cls");
+#else
+   system("clear");
+#endif
+
    printf("simple-multicast version 0.1.2\n\n");
    do {
     printf("Menu:\n\n");
