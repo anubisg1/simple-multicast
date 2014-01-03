@@ -27,7 +27,7 @@ int main() {
    char ssm_source[15] = "0.0.0.0";
    int destination_port = 1;
    int delay = 1;
-   char choice[15] = "0";
+   char choice[100] = "0";
 
    do {
     printf("Menu:\n\n");
