@@ -44,7 +44,6 @@ int ssm_client_win(const char *mcast_group, const char *ssm_source, int receivin
   }
 
   /* Fill in the destination address information */
-  bzero((char *)&local_sin, sizeof(local_sin));
   local_sin.sin_family = AF_INET;
   local_sin.sin_port = htons(receiving_port);
   local_sin.sin_addr.s_addr = htonl(INADDR_ANY);

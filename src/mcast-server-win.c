@@ -44,7 +44,6 @@ int mcast_server_win(const char *mcast_group, int destination_port, int delay_ms
   }
 
   // Fill out source socket's address information.
-  bzero((char *)&source_sin, sizeof(source_sin));
   source_sin.sin_family = AF_INET;
   source_sin.sin_port = htons (SOURCE_PORT);
   source_sin.sin_addr.s_addr = htonl (INADDR_ANY);
@@ -64,7 +63,6 @@ int mcast_server_win(const char *mcast_group, int destination_port, int delay_ms
   }
 
   // Fill out the desination socket's address information.
-  bzero((char *)&dest_sin, sizeof(dest_sin));
   dest_sin.sin_family = AF_INET;
   dest_sin.sin_port = htons(destination_port);
   dest_sin.sin_addr.s_addr = inet_addr(mcast_group);
