@@ -18,6 +18,7 @@
 
 /* TO DO - Verify that IPs given in input are valid IPs */
 #include <stdio.h>                  // Required for printf() and sprintf()
+#include <string.h>                 // Required for strcmp()
 #include "mcast-server.h"
 #include "mcast-client.h"
 
@@ -26,7 +27,7 @@ int main() {
    char ssm_source[15] = "0.0.0.0";
    int destination_port = 1;
    int delay = 1;
-   int choice = 0;
+   char choice[15] = "0";
 
    do {
     printf("Menu:\n\n");
@@ -35,58 +36,59 @@ int main() {
     printf("3. Source Specific Multicast Client\n");
     printf("4. Exit\n");
     printf("Enter your choice: ");
-    scanf("%d", &choice);
+    scanf("%s", choice);
 
-    switch(choice) {
-        case 1:
-            printf("Enter the multicast destination address, in case of SSM\n");
-            printf("the IP must be in the range 232.0.0.0/8: ");
-            scanf("%s", mcast_group);
-            printf("Enter the destination port number: ");
-            scanf("%d", &destination_port);
-            printf("Enter the interval between packets in seconds: ");
-            scanf("%d", &delay);
+    if (strcmp(choice,"1") == 0 ) {
+        printf("Enter the multicast destination address, in case of SSM\n");
+        printf("the IP must be in the range 232.0.0.0/8: ");
+        scanf("%s", mcast_group);
+        printf("Enter the destination port number: ");
+        scanf("%d", &destination_port);
+        printf("Enter the interval between packets in seconds: ");
+        scanf("%d", &delay);
 #ifdef _WIN32
-            delay = delay*1000;
-            mcast_server_win(mcast_group, destination_port, delay);
+        delay = delay*1000;
+        mcast_server_win(mcast_group, destination_port, delay);
 #else
-            mcast_server_unix(mcast_group, destination_port, delay);
+        mcast_server_unix(mcast_group, destination_port, delay);
 #endif // _WIN32
-            break;
-        case 2:
-            printf("Enter the multicast group address to join: ");
-            scanf("%s", mcast_group);
-            printf("Enter the port number to listen to: ");
-            scanf("%d", &destination_port);
+        break;
+    }
+    else if (strcmp(choice,"2") == 0 ) {
+        printf("Enter the multicast group address to join: ");
+        scanf("%s", mcast_group);
+        printf("Enter the port number to listen to: ");
+        scanf("%d", &destination_port);
 #ifdef _WIN32
-            mcast_client_win(mcast_group, destination_port);
+        mcast_client_win(mcast_group, destination_port);
 #else
-            mcast_client_unix(mcast_group, destination_port);
+        mcast_client_unix(mcast_group, destination_port);
 #endif // _WIN32
-            break;
-        case 3:
-            printf("Enter the multicast group address to join,\n");
-            printf("the IP must be in the range 232.0.0.0/8: ");
-            scanf("%s", mcast_group);
-            printf("Enter the ip address of the authorized source: ");
-            scanf("%s", ssm_source);
-            printf("Enter the port number to listen to: ");
-            scanf("%d", &destination_port);
-#ifdef _WIN32
-            ssm_client_win(mcast_group, ssm_source, destination_port);
-#else
-            ssm_client_unix(mcast_group, ssm_source, destination_port);
-#endif // _WIN32
-            break;
-        case 4:
-            printf("Quitting program!\n");
-            return 0;
-            break;
-        default:
-            printf("Invalid choice! \n");
             break;
     }
-   } while (choice != 4);
+    else if (strcmp(choice,"3") == 0 ) {
+        printf("Enter the multicast group address to join,\n");
+        printf("the IP must be in the range 232.0.0.0/8: ");
+        scanf("%s", mcast_group);
+        printf("Enter the ip address of the authorized source: ");
+        scanf("%s", ssm_source);
+        printf("Enter the port number to listen to: ");
+        scanf("%d", &destination_port);
+#ifdef _WIN32
+        ssm_client_win(mcast_group, ssm_source, destination_port);
+#else
+        ssm_client_unix(mcast_group, ssm_source, destination_port);
+#endif // _WIN32
+    }
+    else if (strcmp(choice,"4") == 0 ) {
+        printf("Quitting program!\n");
+        return 0;
+        break;
+    }
+    else {
+        printf("Invalid choice! \n");
+    }
+   } while (strcmp(choice,"4") != 0);
 
    return 0;
 }
