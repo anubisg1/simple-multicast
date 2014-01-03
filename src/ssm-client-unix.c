@@ -33,7 +33,7 @@ int ssm_client_unix(const char *mcast_group, const char *ssm_source, int receivi
               recv_sin;            // Holds the source address upon recvfrom function returns
 
   /* Create a datagram socket, sock. */
-  if ((sock = socket (AF_INET, SOCK_DGRAM, 0)) == INVALID_SOCKET) {
+  if ((sock = socket(AF_INET, SOCK_DGRAM, 0)) == INVALID_SOCKET) {
     perror("socket");
     return FALSE;
   }
@@ -45,7 +45,7 @@ int ssm_client_unix(const char *mcast_group, const char *ssm_source, int receivi
   local_sin.sin_addr.s_addr = htonl(INADDR_ANY);
 
   /* Associate the local address with the sock */
-  if (bind(sock, (struct sockaddr *) &local_sin, sizeof(local_sin)) == SOCKET_ERROR ) {
+  if (bind(sock, (struct sockaddr *)&local_sin, sizeof(local_sin)) == SOCKET_ERROR) {
     perror("bind");
     return FALSE;
   }
@@ -65,7 +65,7 @@ int ssm_client_unix(const char *mcast_group, const char *ssm_source, int receivi
 
   /* Let's receive our traffic */
   while (1) {
-    if (recvfrom(sock, message, sizeof(message), 0, (struct sockaddr *) &recv_sin, &addrlen) == SOCKET_ERROR ) {
+    if (recvfrom(sock, message, sizeof(message), 0, (struct sockaddr *)&recv_sin, &addrlen) == SOCKET_ERROR ) {
         perror("recvfrom");
         return FALSE;
     }

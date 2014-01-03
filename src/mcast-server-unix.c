@@ -33,7 +33,7 @@ int mcast_server_unix(const char *mcast_group, int destination_port, int delay_s
               dest_sin;             // Destination socket addresss
 
   /* Create a datagram socket, sock. */
-  if ((sock = socket (AF_INET, SOCK_DGRAM, 0)) == INVALID_SOCKET) {
+  if ((sock = socket(AF_INET, SOCK_DGRAM, 0)) == INVALID_SOCKET) {
     perror("socket");
     return FALSE;
   }
@@ -51,7 +51,7 @@ int mcast_server_unix(const char *mcast_group, int destination_port, int delay_s
   source_sin.sin_port = htons(SOURCE_PORT);
 
   /* Associate the source socket's address with the socket, sock. */
-  if (bind (sock, (struct sockaddr *) &source_sin, sizeof (source_sin)) == SOCKET_ERROR) {
+  if (bind (sock, (struct sockaddr *)&source_sin, sizeof(source_sin)) == SOCKET_ERROR) {
     perror("bind");
     return FALSE;
   }
@@ -67,7 +67,7 @@ int mcast_server_unix(const char *mcast_group, int destination_port, int delay_s
     time_t t = time(0);
     sprintf(message, "time is %-24.24s", ctime(&t));
     printf("sending message: %s\n", message);
-    if (sendto(sock, message, sizeof(message), 0, (struct sockaddr *) &dest_sin, sizeof(dest_sin)) == SOCKET_ERROR) {
+    if (sendto(sock, message, sizeof(message), 0, (struct sockaddr *)&dest_sin, sizeof(dest_sin)) == SOCKET_ERROR) {
         perror("sendto");
         return FALSE;
     }

@@ -38,7 +38,7 @@ int mcast_server_win(const char *mcast_group, int destination_port, int delay_ms
   }
 
   // Create a datagram window socket, sock.
-  if ((sock = socket (AF_INET, SOCK_DGRAM, 0)) == INVALID_SOCKET) {
+  if ((sock = socket(AF_INET, SOCK_DGRAM, 0)) == INVALID_SOCKET) {
     perror("sock");
     return FALSE;
   }
@@ -49,16 +49,16 @@ int mcast_server_win(const char *mcast_group, int destination_port, int delay_ms
   source_sin.sin_addr.s_addr = htonl (INADDR_ANY);
 
   // Associate the source socket's address with the socket, sock.
-  if (bind (sock, (struct sockaddr *) &source_sin, sizeof (source_sin)) == SOCKET_ERROR) {
+  if (bind (sock, (struct sockaddr *)&source_sin, sizeof(source_sin)) == SOCKET_ERROR) {
     perror("bind");
-    closesocket (sock);
+    closesocket(sock);
     return FALSE;
   }
 
   // Set the Time-to-Live of the multicast.
-  if (setsockopt (sock, IPPROTO_IP, IP_MULTICAST_TTL, (char *)&ttl, sizeof (int)) == SOCKET_ERROR) {
+  if (setsockopt (sock, IPPROTO_IP, IP_MULTICAST_TTL, (char *)&ttl, sizeof(ttl)) == SOCKET_ERROR) {
     perror("setsockopt");
-    closesocket (sock);
+    closesocket(sock);
     return FALSE;
   }
 
@@ -72,17 +72,17 @@ int mcast_server_win(const char *mcast_group, int destination_port, int delay_ms
     time_t t = time(0);
     sprintf(message, "time is %-24.24s", ctime(&t));
     printf("sending message: %s\n", message);
-    if (sendto (sock, message, sizeof(message), 0, (struct sockaddr *) &dest_sin, sizeof (dest_sin)) == SOCKET_ERROR) {
+    if (sendto (sock, message, sizeof(message), 0, (struct sockaddr *)&dest_sin, sizeof(dest_sin)) == SOCKET_ERROR) {
         perror("sendto");
-        closesocket (sock);
+        closesocket(sock);
         return FALSE;
     } else
     Sleep(delay_ms);
    }
   // Disable sending on sock before closing it.
-  shutdown (sock, 0x01);
+  shutdown(sock, 0x01);
   // Close sock.
-  closesocket (sock);
+  closesocket(sock);
   WSACleanup ();
   return TRUE;
 }

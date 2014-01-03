@@ -38,7 +38,7 @@ int mcast_client_win(const char *mcast_group, int receiving_port ) {
   }
 
   /* Create a datagram socket, sock. */
-  if ((sock = socket (AF_INET, SOCK_DGRAM, 0)) == INVALID_SOCKET) {
+  if ((sock = socket(AF_INET, SOCK_DGRAM, 0)) == INVALID_SOCKET) {
     perror("socket");
     return FALSE;
   }
@@ -49,9 +49,9 @@ int mcast_client_win(const char *mcast_group, int receiving_port ) {
   local_sin.sin_addr.s_addr = htonl(INADDR_ANY);
 
   /* Fill in the destination address information */
-  if (bind (sock, (struct sockaddr *) &local_sin, sizeof (local_sin)) == SOCKET_ERROR) {
+  if (bind(sock, (struct sockaddr *)&local_sin, sizeof(local_sin)) == SOCKET_ERROR) {
     perror("bind");
-    closesocket (sock);
+    closesocket(sock);
     return FALSE;
   }
 
@@ -59,9 +59,9 @@ int mcast_client_win(const char *mcast_group, int receiving_port ) {
   mreq.imr_multiaddr.s_addr = inet_addr(mcast_group);
   mreq.imr_interface.s_addr = htonl(INADDR_ANY);
 
-  if (setsockopt (sock, IPPROTO_IP, IP_ADD_MEMBERSHIP, (char *)&mreq, sizeof(mreq)) == SOCKET_ERROR) {
-    perror("setsockopt");
-    closesocket (sock);
+  if (setsockopt(sock, IPPROTO_IP, IP_ADD_MEMBERSHIP, (char *)&mreq, sizeof(mreq)) == SOCKET_ERROR) {
+    perror("setsockopt mreq");
+    closesocket(sock);
     return FALSE;
   }
 
@@ -69,9 +69,9 @@ int mcast_client_win(const char *mcast_group, int receiving_port ) {
 
   /* Let's receive our traffic */
   while (1) {
-    if (recvfrom (sock, message, sizeof (message), 0, (struct sockaddr *) &recv_sin, &addrlen) == SOCKET_ERROR) {
+    if (recvfrom (sock, message, sizeof(message), 0, (struct sockaddr *)&recv_sin, &addrlen) == SOCKET_ERROR) {
         perror("recvfrom");
-        closesocket (sock);
+        closesocket(sock);
         return FALSE;
     }
     else  {
@@ -80,9 +80,9 @@ int mcast_client_win(const char *mcast_group, int receiving_port ) {
   }
 
   // Disable receiving on sock before closing it.
-  shutdown (sock, 0x00);
+  shutdown(sock, 0x00);
   // Close sock.
-  closesocket (sock);
+  closesocket(sock);
   WSACleanup ();
   return TRUE;
 }

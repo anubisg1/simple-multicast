@@ -38,7 +38,7 @@ int ssm_client_win(const char *mcast_group, const char *ssm_source, int receivin
   }
 
   /* Create a datagram socket, sock. */
-  if ((sock = socket (AF_INET, SOCK_DGRAM, 0)) == INVALID_SOCKET) {
+  if ((sock = socket(AF_INET, SOCK_DGRAM, 0)) == INVALID_SOCKET) {
     perror("sock");
     return FALSE;
   }
@@ -49,9 +49,9 @@ int ssm_client_win(const char *mcast_group, const char *ssm_source, int receivin
   local_sin.sin_addr.s_addr = htonl(INADDR_ANY);
 
   /* Fill in the destination address information */
-  if (bind (sock, (struct sockaddr *) &local_sin, sizeof (local_sin)) == SOCKET_ERROR) {
+  if (bind (sock, (struct sockaddr *)&local_sin, sizeof(local_sin)) == SOCKET_ERROR) {
     perror("bind");
-    closesocket (sock);
+    closesocket(sock);
     return FALSE;
   }
 
@@ -62,17 +62,17 @@ int ssm_client_win(const char *mcast_group, const char *ssm_source, int receivin
 
   if (setsockopt(sock, IPPROTO_IP, IP_ADD_SOURCE_MEMBERSHIP, (char *)&mreq, sizeof(mreq)) == SOCKET_ERROR) {
     perror("setsockopt mreq");
-    closesocket (sock);
+    closesocket(sock);
     return FALSE;
   }
 
-  addrlen = sizeof (recv_sin);
+  addrlen = sizeof(recv_sin);
 
   /* Let's receive our traffic */
   while (1) {
-    if (recvfrom (sock, message, sizeof (message), 0, (struct sockaddr *) &recv_sin, &addrlen) == SOCKET_ERROR) {
+    if (recvfrom (sock, message, sizeof(message), 0, (struct sockaddr *)&recv_sin, &addrlen) == SOCKET_ERROR) {
         perror("recvfrom");
-        closesocket (sock);
+        closesocket(sock);
         return FALSE;
     }
     else  {
@@ -81,9 +81,9 @@ int ssm_client_win(const char *mcast_group, const char *ssm_source, int receivin
   }
 
   // Disable receiving on sock before closing it.
-  shutdown (sock, 0x00);
+  shutdown(sock, 0x00);
   // Close sock.
-  closesocket (sock);
+  closesocket(sock);
   WSACleanup ();
   return TRUE;
 }
