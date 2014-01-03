@@ -1,7 +1,5 @@
 ## Process this file with automake to produce Makefile.in
 
-## Created by Anjuta
-
 AM_CPPFLAGS = \
 	-DPACKAGE_LOCALE_DIR=\""$(localedir)"\" \
 	-DPACKAGE_SRC_DIR=\""$(srcdir)"\" \
@@ -23,6 +21,8 @@ multicast_SOURCES = \
 	mcast-server-win.c \
 	ssm-client-unix.c \
 	ssm-client-win.c \
+	testip.c \
+	testip.h \
 	tcp_ip.h
 
 multicast_LDFLAGS = 
