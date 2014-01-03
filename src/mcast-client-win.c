@@ -18,7 +18,7 @@
 
 #ifdef _WIN32
 
-#include <stdio.h>                  // Required for printf() and sprintf()
+#include <stdio.h>                  // Required for printf(), sprintf() and perror)
 #include "mcast-client.h"           // Required for socks specific headers
 
 int mcast_client_win(const char *mcast_group, int receiving_port) {

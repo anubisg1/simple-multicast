@@ -18,7 +18,7 @@
 
 #ifndef _WIN32
 
-#include <stdio.h>                  // Required for printf() and perror()
+#include <stdio.h>                  // Required for printf(), sprintf() and perror)
 #include <strings.h>                // Required for bzero()
 #include "mcast-client.h"           // Required for socks specific headers
 
