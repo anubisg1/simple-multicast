@@ -46,6 +46,10 @@
 #ifndef SOCKET_ERROR
 #define SOCKET_ERROR (-1)
 #endif
+
+/** \typedef int SOCKET;
+* A simple declaration to make code more clear and compatible with winsock.
+*/
 typedef int SOCKET;
 
 /** \def TRUE (0)
@@ -60,8 +64,6 @@ typedef int SOCKET;
 * Standard boolean type, this kind of variable should be #TRUE or #FALSE only.
 */
 typedef int bool;
-
-/* Not everyone has the headers for this so improvise */
 
 #endif // _WIN32
 

@@ -30,11 +30,34 @@
 #define __MCAST_SERVER_H__
 
 #include "tcp_ip.h"
-#define SOURCE_PORT       0
+
+/** \def SOURCE_PORT (0)
+ *   A dummy source port number.
+ */
+#define SOURCE_PORT  0
 
 #ifdef _WIN32
+/** \fn int mcast_server_win(const char *mcast_group, int destination_port, int delay_ms);
+* Executes multicast server application for windows.
+*
+* \param mcast_group Is a string containing the multicast group address.
+*
+* \param destination_port Is an int containing the destinaion UDP port number.
+*
+* \param delay_ms Is an int (in milliseconds) defining the sleep period between packets.
+*/
 int mcast_server_win(const char *mcast_group, int destination_port, int delay_ms);
 #else
+
+/** \fn int mcast_server_unix(const char *mcast_group, int destination_port, int delay_s);
+* Executes multicast server application for unix.
+*
+* \param mcast_group Is a string containing the multicast group address.
+*
+* \param destination_port Is an int containing the destinaion UDP port number.
+*
+* \param delay_s Is an int (in seconds) defining the sleep period between packets.
+*/
 int mcast_server_unix(const char *mcast_group, int destination_port, int delay_s);
 #endif // _WIN32
 
