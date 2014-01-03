@@ -26,14 +26,13 @@ int mcast_client_unix(const char *mcast_group, int receiving_port) {
 
   socklen_t addrlen;               // Lenght of ecv_sin
   char message[100];               // Sent message string
-  SOCKET sock;                     // Datagram window socket
+  SOCKET sock = INVALID_SOCKET;    // Datagram window socket
   struct ip_mreq mreq;             // Used in adding or dropping multicasting addresses
-  struct sockaddr_in local_sin,    // Local socket's address
+  SOCKADDR_IN local_sin,           // Local socket's address
               recv_sin;            // Holds the source address upon recvfrom function returns
 
-   /* Initialize socket */
-  sock = socket(AF_INET, SOCK_DGRAM, 0);
-  if (sock == SOCKET_ERROR) {
+  /* Create a datagram socket, sock. */
+  if ((sock = socket (AF_INET, SOCK_DGRAM, 0)) == INVALID_SOCKET) {
     perror("socket");
     return FALSE;
   }
@@ -63,11 +62,11 @@ int mcast_client_unix(const char *mcast_group, int receiving_port) {
 
   /* Let's receive our traffic */
   while (1) {
-      if (recvfrom(sock, message, sizeof(message), 0, (struct sockaddr *) &recv_sin, &addrlen) == SOCKET_ERROR ) {
+    if (recvfrom (sock, message, sizeof (message), 0, (struct sockaddr *) &recv_sin, &addrlen) == SOCKET_ERROR) {
         perror("recvfrom");
         return FALSE;
-      }
-      printf("%s: message received = \"%s\"\n", inet_ntoa(recv_sin.sin_addr), message);
+    }
+    printf("%s: message received = \"%s\"\n", inet_ntoa(recv_sin.sin_addr), message);
   }
   return TRUE;
 }

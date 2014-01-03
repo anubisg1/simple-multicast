@@ -26,47 +26,44 @@
 
 int mcast_server_unix(const char *mcast_group, int destination_port, int delay_s) {
 
-   int ttl = 64;                    // IP TTL
-   char message[50];                // Sent message string
-   SOCKET sock;                     // Datagram window socket
-   struct sockaddr_in source_sin,   // Source socket address
-                      dest_sin;     // Destination socket address
+  int ttl = 64;                     // IP TTL
+  char message[50];                 // Sent message string
+  SOCKET sock = INVALID_SOCKET;     // Datagram window socket
+  SOCKADDR_IN source_sin,           // Source socket address
+              dest_sin;             // Destination socket addresss
 
-   /* Initialize socket */
-   sock = socket(AF_INET, SOCK_DGRAM, 0);
-   if (sock == SOCKET_ERROR) {
-     perror("socket");
-     return FALSE;
-   }
+  /* Create a datagram socket, sock. */
+  if ((sock = socket (AF_INET, SOCK_DGRAM, 0)) == INVALID_SOCKET) {
+    perror("socket");
+    return FALSE;
+  }
 
-   /* Set the Time-to-Live of the multicast. */
-   if (setsockopt(sock, IPPROTO_IP, IP_MULTICAST_TTL, &ttl, sizeof(ttl)) == SOCKET_ERROR) {
-     perror("setsockopt");
-     return FALSE;
-   }
+  /* Set the Time-to-Live of the multicast. */
+  if (setsockopt(sock, IPPROTO_IP, IP_MULTICAST_TTL, &ttl, sizeof(ttl)) == SOCKET_ERROR) {
+    perror("setsockopt");
+    return FALSE;
+  }
 
-   /* Fill in the source address information */
-   bzero((char *)&source_sin, sizeof(source_sin));
-   source_sin.sin_family = AF_INET;
-   source_sin.sin_addr.s_addr = htonl(INADDR_ANY);
-   source_sin.sin_port = htons(SOURCE_PORT);
+  /* Fill in the source address information */
+  bzero((char *)&source_sin, sizeof(source_sin));
+  source_sin.sin_family = AF_INET;
+  source_sin.sin_addr.s_addr = htonl(INADDR_ANY);
+  source_sin.sin_port = htons(SOURCE_PORT);
 
+  /* Associate the source socket's address with the socket, sock. */
+  if (bind (sock, (struct sockaddr *) &source_sin, sizeof (source_sin)) == SOCKET_ERROR) {
+    perror("bind");
+    return FALSE;
+  }
 
-   /* Associate the source socket's address with the socket, sock. */
-   if (bind (sock, (struct sockaddr *) &source_sin, sizeof (source_sin)) == SOCKET_ERROR) {
-     perror("bind");
-     return FALSE;
-   }
+  /* Fill in the destination address information */
+  bzero((char *)&dest_sin, sizeof(dest_sin));
+  dest_sin.sin_family = AF_INET;
+  dest_sin.sin_addr.s_addr = inet_addr(mcast_group);
+  dest_sin.sin_port = htons(destination_port);
 
-   /* Fill in the destination address information */
-   bzero((char *)&dest_sin, sizeof(dest_sin));
-   dest_sin.sin_family = AF_INET;
-   dest_sin.sin_addr.s_addr = inet_addr(mcast_group);
-   dest_sin.sin_port = htons(destination_port);
-
-
-   /* Send packets to the multicast address ever "delay_s" seconds */
-   while (1) {
+  /* Send packets to the multicast address ever "delay_s" seconds */
+  while (1) {
     time_t t = time(0);
     sprintf(message, "time is %-24.24s", ctime(&t));
     printf("sending message: %s\n", message);
@@ -75,8 +72,8 @@ int mcast_server_unix(const char *mcast_group, int destination_port, int delay_s
         return FALSE;
     }
     sleep(delay_s);
-   }
-   return TRUE;
+  }
+  return TRUE;
 }
 
 #endif // _WIN32

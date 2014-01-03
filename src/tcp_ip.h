@@ -44,22 +44,39 @@
 #include <netinet/in.h>
 
 #ifndef SOCKET_ERROR
+/** \def SOCKET_ERROR (-1)
+*  simple declaration to make code more clear and compatible with winsock.
+*/
 #define SOCKET_ERROR (-1)
-#endif
+#endif // SOCKET_ERROR
+
+#ifndef INVALID_SOCKET
+/** \def INVALID_SOCKET (SOCKET)(~0)
+*  simple declaration to make code more clear and compatible with winsock.
+*/
+#define INVALID_SOCKET (SOCKET)(~0)
+#endif // INVALID_SOCKET
 
 /** \typedef int SOCKET;
 * A simple declaration to make code more clear and compatible with winsock.
 */
 typedef int SOCKET;
 
+/** \typedef struct sockaddr_in SOCKADDR_IN;;
+* A simple declaration to make code more clear and compatible with winsock.
+*/
+typedef struct sockaddr_in SOCKADDR_IN;
+
 /** \def TRUE (0)
 * Define the bool value \b TRUE as \b 0.
 */
 #define TRUE (0)
+
 /** \def FALSE (!TRUE)
 * Define the bool value \b FALSE as \b !TRUE.
 */
 #define FALSE !TRUE
+
 /** \typedef int bool;
 * Standard boolean type, this kind of variable should be #TRUE or #FALSE only.
 */
