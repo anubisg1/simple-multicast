@@ -93,7 +93,7 @@ int main() {
         printf("Enter the multicast group address to join,\n");
         printf("the IP must be in the range 232.0.0.0/8: ");
         scanf("%s", mcast_group);
-        if (is_valid_mcast_ip(mcast_group) == 0 ) {
+        if (is_valid_ssm_ip(mcast_group) == 0 ) {
             printf("Invalid multicast group address!\n");
             return 0;
         }

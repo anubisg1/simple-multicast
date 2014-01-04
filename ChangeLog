@@ -1,3 +1,7 @@
+0.1.2
+* Fixed bug where user could enter any input. The program now verified that
+  IPs and port numbers are in valid range
+
 0.1.1
 * Fixed bug in menu selection. Menu doesn't loop anymore if a char is typed
 

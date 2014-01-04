@@ -38,5 +38,6 @@
 int valid_digit(char *ip_str);
 int is_valid_ip(char *ip_str);
 int is_valid_mcast_ip(char *ip_str);
+int is_valid_ssm_ip(char *ip_str);
 
 #endif
