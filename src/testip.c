@@ -22,7 +22,7 @@
 #include "testip.h"
 
 /* return 1 if string contain only digits, else return 0 */
-int valid_digit(char *ip_str) {
+int valid_digit(const char *ip_str) {
     while (*ip_str) {
         if (*ip_str >= '0' && *ip_str <= '9')
             ++ip_str;
@@ -33,15 +33,21 @@ int valid_digit(char *ip_str) {
 }
 
 /* return 1 if IP string is valid, else return 0 */
-int is_valid_ip(char *ip_str) {
+int is_valid_ip(const char *my_ip_str) {
     int num, dots = 0;
     char *ptr;
 
-    if (ip_str == NULL)
+    if (my_ip_str == NULL)
         return 0;
 
     // See following link for strtok()
     // http://pubs.opengroup.org/onlinepubs/009695399/functions/strtok_r.html
+   char *ip_str = malloc (1 + strlen (my_ip_str));
+   if (ip_str)
+       strcpy (ip_str, my_ip_str);
+   else
+	fprintf (stderr, "malloc failure!");
+
     ptr = strtok(ip_str, DELIM);
 
     if (ptr == NULL)
@@ -72,15 +78,21 @@ int is_valid_ip(char *ip_str) {
 }
 
 /* return 1 if IP string is valid, else return 0 */
-int is_valid_mcast_ip(char *ip_str) {
+int is_valid_mcast_ip(const char *my_ip_str) {
     int num, dots = 0;
     char *ptr;
 
-    if (ip_str == NULL)
+    if (my_ip_str == NULL)
         return 0;
 
     // See following link for strtok()
     // http://pubs.opengroup.org/onlinepubs/009695399/functions/strtok_r.html
+   char *ip_str = malloc (1 + strlen (my_ip_str));
+   if (ip_str)
+       strcpy (ip_str, my_ip_str);
+   else
+        fprintf (stderr, "malloc failure!");
+
     ptr = strtok(ip_str, DELIM);
 
     if (ptr == NULL)
@@ -125,15 +137,21 @@ int is_valid_mcast_ip(char *ip_str) {
 }
 
 /* return 1 if IP string is valid, else return 0 */
-int is_valid_ssm_ip(char *ip_str) {
+int is_valid_ssm_ip(const char *my_ip_str) {
     int num, dots = 0;
     char *ptr;
 
-    if (ip_str == NULL)
+    if (my_ip_str == NULL)
         return 0;
 
     // See following link for strtok()
     // http://pubs.opengroup.org/onlinepubs/009695399/functions/strtok_r.html
+   char *ip_str = malloc (1 + strlen (my_ip_str));
+   if (ip_str)
+       strcpy (ip_str, my_ip_str);
+   else
+        fprintf (stderr, "malloc failure!");
+
     ptr = strtok(ip_str, DELIM);
 
     if (ptr == NULL)

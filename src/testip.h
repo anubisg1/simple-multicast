@@ -35,9 +35,9 @@
 *  The dot is use to divide ipv4 octects.
 */
 
-int valid_digit(char *ip_str);
-int is_valid_ip(char *ip_str);
-int is_valid_mcast_ip(char *ip_str);
-int is_valid_ssm_ip(char *ip_str);
+int valid_digit(const char *ip_str);
+int is_valid_ip(const char *ip_str);
+int is_valid_mcast_ip(const char *ip_str);
+int is_valid_ssm_ip(const char *ip_str);
 
 #endif
