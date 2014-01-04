@@ -17,6 +17,7 @@
 */
 
 #include <stdio.h>                  // Required for printf(), sprintf() and perror)
+#include <string.h> // memset() 
 #include "../compatibility.h"
 #include "testip6.h"
 
