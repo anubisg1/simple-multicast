@@ -51,55 +51,72 @@ int main() {
         printf("Enter the multicast destination address, in case of SSM\n");
         printf("the IP must be in the range 232.0.0.0/8: ");
         scanf("%s", mcast_group);
+
         if (is_valid_mcast_ip(mcast_group) == 0 ) {
             printf("Invalid multicast group address!\n");
             return 0;
         }
+
         printf("Enter the destination port number: ");
         scanf("%d", &destination_port);
         if (destination_port < 0 || destination_port > 65535) {
             printf("Invalid port number!\n");
             return 0;
         }
+
         printf("Enter the interval between packets in seconds: ");
         scanf("%d", &delay);
+
+	/* we are ready , let start the server */
         mcast_server(mcast_group, destination_port, delay);
     }
     else if (strcmp(choice,"2") == 0 ) {
         printf("Enter the multicast group address to join: ");
         scanf("%s", mcast_group);
+
         if (is_valid_mcast_ip(mcast_group) == 0 ) {
             printf("Invalid multicast group address!\n");
             return 0;
         }
+
         printf("Enter the port number to listen to: ");
         scanf("%d", &destination_port);
+
         if (destination_port < 0 || destination_port > 65535) {
             printf("Invalid port number!\n");
             return 0;
         }
+
+        /* we are ready , let start the client */
         mcast_client(mcast_group, destination_port);
     }
     else if (strcmp(choice,"3") == 0 ) {
         printf("Enter the multicast group address to join,\n");
         printf("the IP must be in the range 232.0.0.0/8: ");
         scanf("%s", mcast_group);
+
         if (is_valid_ssm_ip(mcast_group) == 0 ) {
             printf("Invalid multicast group address!\n");
             return 0;
         }
+
         printf("Enter the ip address of the authorized source: ");
         scanf("%s", ssm_source);
+
         if (is_valid_ip(ssm_source) == 0 ) {
             printf("Invalid IP address!\n");
             return 0;
         }
+
         printf("Enter the port number to listen to: ");
         scanf("%d", &destination_port);
+
         if (destination_port < 0 || destination_port > 65535) {
             printf("Invalid port number!\n");
             return 0;
         }
+
+        /* we are ready , let start the client */
        ssm_client(mcast_group, ssm_source, destination_port);
     }
     else if (strcmp(choice,"4") == 0 ) {
@@ -108,6 +125,7 @@ int main() {
     }
     else {
         printf("Invalid choice! \n");
+
 /* FIX ME - I don't like this solution */
 #ifdef _WIN32
         system("cls");
@@ -119,3 +137,4 @@ int main() {
 
    return 0;
 }
+

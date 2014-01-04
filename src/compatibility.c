@@ -20,6 +20,7 @@
 
 #ifdef _WIN32
 
+/* we convert seconds in milliseconds and we call windows Sleep */
 void sleep(int delay_s) {
     int ms = 1000*delay_s;
     Sleep(ms);
@@ -27,6 +28,7 @@ void sleep(int delay_s) {
 
 #else
 
+/* we really don't want to do anything here */
 void closesocket(SOCKET sock) {
 }
 
