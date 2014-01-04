@@ -70,15 +70,19 @@ typedef int SOCKET;
 */
 typedef struct sockaddr_in SOCKADDR_IN;
 
-/** \def TRUE (0)
-* Define the bool value \b TRUE as \b 0.
+/** \def FALSE (0)
+* Define the bool value \b FALSE as \b 0.
 */
-#define TRUE (0)
+#ifndef FALSE
+#define FALSE (0)
+#endif // FALSE
 
-/** \def FALSE (!TRUE)
-* Define the bool value \b FALSE as \b !TRUE.
+/** \def TRUE (!FALSE)
+* Define the bool value \b TRUE as \b !FALSE.
 */
-#define FALSE !TRUE
+#ifndef TRUE
+#define TRUE !FALSE
+#endif // TRUE
 
 /** \typedef int bool;
 * Standard boolean type, this kind of variable should be #TRUE or #FALSE only.
