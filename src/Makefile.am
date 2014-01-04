@@ -13,17 +13,15 @@ bin_PROGRAMS = multicast
 
 multicast_SOURCES = \
 	main.c \
-	mcast-client.h \
-	mcast-client-unix.c \
-	mcast-client-win.c \
-	mcast-server.h \
-	mcast-server-unix.c \
-	mcast-server-win.c \
-	ssm-client-unix.c \
-	ssm-client-win.c \
-	testip.c \
-	testip.h \
-	tcp_ip.h
+	compatibility.c \
+	compatibility.h \
+	ipv4/mcast-client.c \
+	ipv4/mcast-client.h \
+	ipv4/mcast-server.c \
+	ipv4/mcast-server.h \
+	ipv4/ssm-client.c \
+	ipv4/testip.c \
+	ipv4/testip.h
 
 multicast_LDFLAGS = 
 

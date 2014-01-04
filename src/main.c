@@ -19,9 +19,9 @@
 #include <stdio.h>                  // Required for printf() and sprintf()
 #include <string.h>                 // Required for strcmp()
 #include <stdlib.h>		            // Required for system()
-#include "mcast-server.h"
-#include "mcast-client.h"
-#include "testip.h"
+#include "ipv4/mcast-server.h"
+#include "ipv4/mcast-client.h"
+#include "ipv4/testip.h"
 
 int main() {
    char mcast_group[15] = "0.0.0.0";
@@ -63,12 +63,7 @@ int main() {
         }
         printf("Enter the interval between packets in seconds: ");
         scanf("%d", &delay);
-#ifdef _WIN32
-        delay = delay*1000;
-        mcast_server_win(mcast_group, destination_port, delay);
-#else
-        mcast_server_unix(mcast_group, destination_port, delay);
-#endif // _WIN32
+        mcast_server(mcast_group, destination_port, delay);
     }
     else if (strcmp(choice,"2") == 0 ) {
         printf("Enter the multicast group address to join: ");
@@ -83,11 +78,7 @@ int main() {
             printf("Invalid port number!\n");
             return 0;
         }
-#ifdef _WIN32
-        mcast_client_win(mcast_group, destination_port);
-#else
-        mcast_client_unix(mcast_group, destination_port);
-#endif // _WIN32
+        mcast_client(mcast_group, destination_port);
     }
     else if (strcmp(choice,"3") == 0 ) {
         printf("Enter the multicast group address to join,\n");
@@ -109,11 +100,7 @@ int main() {
             printf("Invalid port number!\n");
             return 0;
         }
-#ifdef _WIN32
-        ssm_client_win(mcast_group, ssm_source, destination_port);
-#else
-        ssm_client_unix(mcast_group, ssm_source, destination_port);
-#endif // _WIN32
+       ssm_client(mcast_group, ssm_source, destination_port);
     }
     else if (strcmp(choice,"4") == 0 ) {
         printf("Quitting program!\n");
