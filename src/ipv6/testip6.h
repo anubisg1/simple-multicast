@@ -35,4 +35,6 @@
 *  The dot is use to divide ipv6 groups.
 */
 
+int getaddrfamily(const char *addr);
+
 #endif

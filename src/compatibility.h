@@ -44,6 +44,7 @@ void sleep(int delay_s);
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
+#include <netdb.h>
 
 /** \typedef int SOCKET;
 * A simple declaration to make code more clear and compatible with winsock.
