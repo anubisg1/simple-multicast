@@ -33,8 +33,9 @@ int mcast6_client(const char *mcast_group, int receiving_port) {
   SOCKADDR_IN6 recv_sin;              // Holds the source address upon recvfrom function returns
   char string_port[8] = "";           // Holds the port number as a string
   char buffer[8];                     //output string (already filled with something)
+  char ipstr[INET6_ADDRSTRLEN];       // string where we store the source ip address
 
- #ifdef _WIN32
+#ifdef _WIN32
   WSADATA WSAData;                    // Contains details of the winsock implementation
 
   /* Initialize Winsock. */
@@ -105,7 +106,9 @@ int mcast6_client(const char *mcast_group, int receiving_port) {
         closesocket(sock);
         return FALSE;
     }
-    printf("%s: message received = \"%s\"\n", inet_ntop(AF_INET6, &(recv_sin.sin6_addr), NULL, addrlen), message);
+    getpeername(sock, (struct sockaddr*)&recv_sin, &addrlen);
+    inet_ntop(AF_INET6, &recv_sin.sin6_addr, ipstr, sizeof ipstr);
+    printf("%s: message received = \"%s\"\n", ipstr, message);
   }
 
   // Disable receiving on sock before closing it.

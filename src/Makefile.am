@@ -23,7 +23,9 @@ multicast_SOURCES = \
 	ipv4/testip.c \
 	ipv4/testip.h \
 	ipv6/testip6.c \
-	ipv6/testip6.h
+	ipv6/testip6.h \
+	ipv6/mcast6-client.c \
+	ipv6/mcast6-client.h 
 	
 multicast_LDFLAGS = 
 
