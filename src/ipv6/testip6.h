@@ -30,12 +30,6 @@
 #ifndef __TESTIP6_H__
 #define __TESTIP6_H__
 
-#ifdef _WIN32
-#ifndef _WIN32_WINNT
-#define _WIN32_WINNT 0x0501
-#endif // _WIN32_WINNT
-#endif //_WIN32
-
 int validate_ip(const char *ip_address);
 
 #endif

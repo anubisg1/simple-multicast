@@ -31,12 +31,16 @@
 #define __COMPATIBILITY_H__
 
 #ifdef _WIN32
-
+#ifndef _WIN32_WINNT
+#define _WIN32_WINNT 0x0501
+#endif // _WIN32_WINNT
 #include <windows.h>
 #include <winsock2.h>
 #include <Ws2tcpip.h>
 
 void sleep(int delay_s);
+const char *inet_ntop(int af, const void *src, char *dst, socklen_t cnt);
+int inet_pton(int af, const char *src, void *dst);
 
 #else
 
