@@ -1,5 +1,5 @@
 /*
-* mcast-server-win.c
+* mcast-server.c
 * Copyright (C) Andrea Florio 2013 <andrea@opensuse.org>
 *
 * This Project is free software: you can redistribute it and/or modify it

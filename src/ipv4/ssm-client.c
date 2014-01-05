@@ -1,5 +1,5 @@
 /*
-* ssm-client-win.c
+* ssm-client.c
 * Copyright (C) Andrea Florio 2013 <andrea@opensuse.org>
 *
 * This Project is free software: you can redistribute it and/or modify it
