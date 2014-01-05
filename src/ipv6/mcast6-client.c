@@ -18,6 +18,7 @@
 
 #include <stdio.h>                  // Required for printf(), sprintf() and perror)
 #include <time.h>       /* for timestamps */
+#include <string.h>
 #include "testip6.h"
 #include "mcast6-client.h"          // Required for socks specific headers
 

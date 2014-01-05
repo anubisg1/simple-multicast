@@ -74,6 +74,9 @@ typedef int SOCKET;
 */
 typedef struct sockaddr_in SOCKADDR_IN;
 
+
+typedef struct sockaddr_in6 SOCKADDR_IN6;
+
 /** \def FALSE (0)
 * Define the bool value \b FALSE as \b 0.
 */
