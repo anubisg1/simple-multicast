@@ -21,8 +21,10 @@ multicast_SOURCES = \
 	ipv4/mcast-server.h \
 	ipv4/ssm-client.c \
 	ipv4/testip.c \
-	ipv4/testip.h
-
+	ipv4/testip.h \
+	ipv6/testip6.c \
+	ipv6/testip6.h
+	
 multicast_LDFLAGS = 
 
 multicast_LDADD = 
