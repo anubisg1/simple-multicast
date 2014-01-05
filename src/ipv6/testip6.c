@@ -17,17 +17,49 @@
 */
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include "testip6.h"
+#include "../compatibility.h"
 
-/* return 1 if string contain only digits, else return 0 */
-int valid_ipv6_digit(const char *ip_str) {
-    while (*ip_str) {
-        if ( (*ip_str >= '0' && *ip_str <= '9') || (*ip_str >= 'a' && *ip_str <= 'f') || (*ip_str >= 'A' && *ip_str <= 'F'))
-            ++ip_str;
-        else
-            return 0;
-    }
-    return 1;
+int validate_ip(const char *ip_address) {
+
+  struct addrinfo hint, *res = NULL;
+  int ret;
+ #ifdef _WIN32
+  WSADATA WSAData;                    // Contains details of the winsock implementation
+
+  /* Initialize Winsock. */
+  if (WSAStartup (MAKEWORD(2,2), &WSAData) != 0) {
+    perror("WSAStartup");
+    return FALSE;
+  }
+#endif // _WIN32
+  memset(&hint, '\0', sizeof hint);
+
+  hint.ai_family = PF_UNSPEC;
+  hint.ai_flags = AI_NUMERICHOST;
+
+  ret = getaddrinfo(ip_address, NULL, &hint, &res);
+  if (ret) {
+  /* put perror */
+    puts("Invalid address");
+    puts(gai_strerror(ret));
+    return -1;
+  }
+  if(res->ai_family == AF_INET) {
+	freeaddrinfo(res);
+	return AF_INET;
+  } else if (res->ai_family == AF_INET6) {
+	freeaddrinfo(res);
+    return AF_INET6;
+  } else {
+    /* put perror */
+    return -1;
+  }
+
+  freeaddrinfo(res);
+#ifdef _WIN32
+  WSACleanup ();
+#endif // _WIN32
+  return -1;
 }

@@ -30,15 +30,9 @@
 #ifndef __TESTIP6_H__
 #define __TESTIP6_H__
 
-#ifdef _WIN32
+#ifndef _WIN32_WINNT
 #define _WIN32_WINNT 0x0501
-#endif //_WIN32
+#endif // _WIN32_WINNT
 
-#define DELIM ":"
-/** \def DELIM ":"
-*  The dot is use to divide ipv6 groups.
-*/
-
-int valid_ipv6_digit(const char *ip_str);
-
+int validate_ip(const char *ip_address);
 #endif
