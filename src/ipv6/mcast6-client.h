@@ -32,6 +32,6 @@
 #include "../compatibility.h"
 
 int mcast6_client(const char *mcast_group, int receiving_port);
-int ssm6_client(const char *mcast_group, const char *ssm_source, int receiving_port);
+//int ssm6_client(const char *mcast_group, const char *ssm_source, int receiving_port);
 
 #endif

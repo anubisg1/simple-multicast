@@ -22,9 +22,11 @@
 #include "ipv4/mcast-server.h"
 #include "ipv4/mcast-client.h"
 #include "ipv4/testip.h"
+#include "ipv6/mcast6-client.h"
+#include "ipv6/testip6.h"
 
 int main() {
-   char mcast_group[15] = "0.0.0.0";
+   char mcast_group[40] = "0.0.0.0";
    char ssm_source[15] = "0.0.0.0";
    int destination_port = 1;
    int delay = 1;
@@ -40,10 +42,13 @@ int main() {
    printf("simple-multicast version 0.1.2\n\n");
    do {
     printf("Menu:\n\n");
-    printf("1. Multicast Server\n");
-    printf("2. Simple Multicast Client\n");
-    printf("3. Source Specific Multicast Client\n");
-    printf("4. Exit\n");
+    printf("1. IPv4 - Multicast Server\n");
+    printf("2. IPv4 - Simple Multicast Client\n");
+    printf("3. IPv4 - Source Specific Multicast Client\n");
+    printf("4. IPv6 - Multicast Server\n");
+    printf("5. IPv6 - Simple Multicast Client\n");
+    printf("6. IPv6 - Source Specific Multicast Client\n");
+    printf("7. Exit\n");
     printf("Enter your choice: ");
     scanf("%s", choice);
 
@@ -120,6 +125,32 @@ int main() {
        ssm_client(mcast_group, ssm_source, destination_port);
     }
     else if (strcmp(choice,"4") == 0 ) {
+        printf("IPv6 - Multicast Server not implemented yet\n");
+    }
+    else if (strcmp(choice,"5") == 0 ) {
+        printf("Enter the multicast group address to join: ");
+        scanf("%s", mcast_group);
+
+        if (validate_ip(mcast_group) != AF_INET6 ) {
+            printf("Invalid multicast group address!\n");
+            return 0;
+        }
+
+        printf("Enter the port number to listen to: ");
+        scanf("%d", &destination_port);
+
+        if (destination_port < 0 || destination_port > 65535) {
+            printf("Invalid port number!\n");
+            return 0;
+        }
+
+        /* we are ready , let start the client */
+        mcast6_client(mcast_group, destination_port);
+    }
+    else if (strcmp(choice,"6") == 0 ) {
+        printf("IPv6 - Source Specific Multicast Client not implemented yet\n");
+    }
+    else if (strcmp(choice,"7") == 0 ) {
         printf("Quitting program!\n");
         return 0;
     }
@@ -133,7 +164,7 @@ int main() {
         system("clear");
 #endif
     }
-   } while (strcmp(choice,"4") != 0);
+   } while (strcmp(choice,"7") != 0);
 
    return 0;
 }
