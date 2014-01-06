@@ -1,7 +1,7 @@
 /**
-* \file testip6.h
+* \file testip.h
 *
-* \brief Library to test ip6 validity
+* \brief Library to test ip validity
 *
 * \author Andrea Florio <andrea@opensuse.org>
 *
@@ -27,9 +27,13 @@
 */
 
 
-#ifndef __TESTIP6_H__
-#define __TESTIP6_H__
+#ifndef __TESTIP_H__
+#define __TESTIP_H__
 
-int validate_ip(const char *ip_address);
+#include "compatibility.h"
+
+int is_valid_ip(const char *my_ip_str);
+bool is_valid_mcast_ip4(const char *my_ip_str);
+bool is_valid_ssm_ip4(const char *my_ip_str);
 
 #endif

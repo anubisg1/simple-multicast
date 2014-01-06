@@ -30,6 +30,11 @@
 #ifndef __COMPATIBILITY_H__
 #define __COMPATIBILITY_H__
 
+/** \typedef int bool;
+* Standard boolean type, this kind of variable should be #TRUE or #FALSE only.
+*/
+typedef int bool;
+
 #ifdef _WIN32
 #ifndef _WIN32_WINNT
 #define _WIN32_WINNT 0x0501
@@ -92,11 +97,6 @@ typedef struct sockaddr_in6 SOCKADDR_IN6;
 #ifndef TRUE
 #define TRUE !FALSE
 #endif // TRUE
-
-/** \typedef int bool;
-* Standard boolean type, this kind of variable should be #TRUE or #FALSE only.
-*/
-typedef int bool;
 
 void closesocket(SOCKET sock);
 

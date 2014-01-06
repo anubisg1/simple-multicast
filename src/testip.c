@@ -1,5 +1,5 @@
 /*
-* testip6.c
+* testip.c
 * Copyright (C) Andrea Florio 2013 <andrea@opensuse.org>
 *
 * This Project is free software: you can redistribute it and/or modify it
@@ -17,11 +17,11 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-#include "testip6.h"
-#include "../compatibility.h"
+#include "testip.h"
 
-int validate_ip(const char *ip_address) {
+int is_valid_ip(const char *my_ip_str) {
 
   struct addrinfo hint, *res = NULL;
   int ret;
@@ -39,7 +39,7 @@ int validate_ip(const char *ip_address) {
   hint.ai_family = PF_UNSPEC;
   hint.ai_flags = AI_NUMERICHOST;
 
-  ret = getaddrinfo(ip_address, NULL, &hint, &res);
+  ret = getaddrinfo(my_ip_str, NULL, &hint, &res);
   if (ret) {
   /* put perror */
     puts("Invalid address");
@@ -62,4 +62,47 @@ int validate_ip(const char *ip_address) {
   WSACleanup ();
 #endif // _WIN32
   return -1;
+}
+
+bool is_valid_mcast_ip4(const char *my_ip_str) {
+    int num;
+
+    /* if is a NULL pointer is not valid */
+    if (my_ip_str == NULL)
+        return FALSE;
+
+    /* sring must be an IPv4 address */
+    if(is_valid_ip(my_ip_str) != AF_INET)
+        return FALSE;
+
+    /* atoi stops when it encounters the
+    first character that isn't a number */
+    num = atoi(my_ip_str);
+    /* check for valid IP range, we verify just 1st octect */
+    if (num < 224 || num > 239)
+        return FALSE;
+
+    return TRUE;
+}
+
+int is_valid_ssm_ip4(const char *my_ip_str) {
+    int num;
+
+    /* if is a NULL pointer is not valid */
+    if (my_ip_str == NULL)
+        return FALSE;
+
+    /* sring must be an IPv4 address */
+    if(is_valid_ip(my_ip_str) != AF_INET)
+        return FALSE;
+
+    /* atoi stops when it encounters the
+    first character that isn't a number */
+    num = atoi(my_ip_str);
+
+    /* check for valid IP range, we verify just 1st octect  */
+    if (num != 232 )
+        return FALSE;
+
+    return TRUE;
 }

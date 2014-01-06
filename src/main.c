@@ -21,10 +21,9 @@
 #include <stdlib.h>		            // Required for system()
 #include "ipv4/mcast-server.h"
 #include "ipv4/mcast-client.h"
-#include "ipv4/testip.h"
+#include "testip.h"
 #include "ipv6/mcast6-server.h"
 #include "ipv6/mcast6-client.h"
-#include "ipv6/testip6.h"
 
 int main() {
    char mcast_group[INET6_ADDRSTRLEN] = "0.0.0.0";
@@ -58,7 +57,7 @@ int main() {
         printf("the IP must be in the range 232.0.0.0/8: ");
         scanf("%s", mcast_group);
 
-        if (is_valid_mcast_ip(mcast_group) == 0 ) {
+        if (is_valid_mcast_ip4(mcast_group) == FALSE ) {
             printf("Invalid multicast group address!\n");
             return 0;
         }
@@ -80,7 +79,7 @@ int main() {
         printf("Enter the multicast group address to join: ");
         scanf("%s", mcast_group);
 
-        if (is_valid_mcast_ip(mcast_group) == 0 ) {
+        if (is_valid_mcast_ip4(mcast_group) == FALSE ) {
             printf("Invalid multicast group address!\n");
             return 0;
         }
@@ -101,7 +100,7 @@ int main() {
         printf("the IP must be in the range 232.0.0.0/8: ");
         scanf("%s", mcast_group);
 
-        if (is_valid_ssm_ip(mcast_group) == 0 ) {
+        if (is_valid_ssm_ip4(mcast_group) == FALSE ) {
             printf("Invalid multicast group address!\n");
             return 0;
         }
@@ -109,7 +108,7 @@ int main() {
         printf("Enter the ip address of the authorized source: ");
         scanf("%s", ssm_source);
 
-        if (is_valid_ip(ssm_source) == 0 ) {
+        if (is_valid_ip(ssm_source) != AF_INET ) {
             printf("Invalid IP address!\n");
             return 0;
         }
@@ -130,7 +129,7 @@ int main() {
         printf("the IP must be in the range FF3x::/32: ");
         scanf("%s", mcast_group);
 
-        if (validate_ip(mcast_group) != AF_INET6) {
+        if (is_valid_ip(mcast_group) != AF_INET6) {
             printf("Invalid multicast group address!\n");
             return 0;
         }
@@ -152,7 +151,7 @@ int main() {
         printf("Enter the multicast group address to join: ");
         scanf("%s", mcast_group);
 
-        if (validate_ip(mcast_group) != AF_INET6) {
+        if (is_valid_ip(mcast_group) != AF_INET6) {
             printf("Invalid multicast group address!\n");
             return 0;
         }
