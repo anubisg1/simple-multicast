@@ -26,10 +26,9 @@ int mcast6_server(const char *mcast_group, int destination_port, int delay_s ) {
 
   int ttl = 64;                     // IP TTL
   char message[50];                 // Sent message string
- // char ipstr[INET6_ADDRSTRLEN];       // string where we store the source ip address
   SOCKET sock = INVALID_SOCKET;     // Datagram window socket
-  SOCKADDR_IN6 source_sin,           // Source socket address
-               dest_sin;             // Destination socket address
+  SOCKADDR_IN6 source_sin,          // Source socket address
+               dest_sin;            // Destination socket address
  #ifdef _WIN32
   WSADATA WSAData;                  // Contains details of the Winsock implementation
 
@@ -68,8 +67,7 @@ int mcast6_server(const char *mcast_group, int destination_port, int delay_s ) {
   /* Fill out the desination socket's address information. */
   dest_sin.sin6_family = AF_INET6;
   dest_sin.sin6_port = htons(destination_port);
-//  dest_sin.sin6_addr.s6_addr = inet_pton(AF_INET6, &(dest_sin.sin6_addr), );
-   inet_pton(AF_INET6, mcast_group, &(dest_sin.sin6_addr) );
+  inet_pton(AF_INET6, mcast_group, &(dest_sin.sin6_addr) );
 
   /* Send packets to the multicasting address every "delay_s". */
   while (1) {

@@ -27,8 +27,8 @@
 #include "ipv6/testip6.h"
 
 int main() {
-   char mcast_group[40] = "0.0.0.0";
-   char ssm_source[15] = "0.0.0.0";
+   char mcast_group[INET6_ADDRSTRLEN] = "0.0.0.0";
+   char ssm_source[INET6_ADDRSTRLEN] = "0.0.0.0";
    int destination_port = 1;
    int delay = 1;
    char choice[100] = "0";

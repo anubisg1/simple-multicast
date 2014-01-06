@@ -40,8 +40,6 @@ int is_valid_ip(const char *my_ip_str) {
     if (my_ip_str == NULL)
         return 0;
 
-    // See following link for strtok()
-    // http://pubs.opengroup.org/onlinepubs/009695399/functions/strtok_r.html
    char *ip_str = malloc (1 + strlen (my_ip_str));
    if (ip_str)
        strcpy (ip_str, my_ip_str);
@@ -85,8 +83,6 @@ int is_valid_mcast_ip(const char *my_ip_str) {
     if (my_ip_str == NULL)
         return 0;
 
-    // See following link for strtok()
-    // http://pubs.opengroup.org/onlinepubs/009695399/functions/strtok_r.html
    char *ip_str = malloc (1 + strlen (my_ip_str));
    if (ip_str)
        strcpy (ip_str, my_ip_str);
@@ -144,8 +140,6 @@ int is_valid_ssm_ip(const char *my_ip_str) {
     if (my_ip_str == NULL)
         return 0;
 
-    // See following link for strtok()
-    // http://pubs.opengroup.org/onlinepubs/009695399/functions/strtok_r.html
    char *ip_str = malloc (1 + strlen (my_ip_str));
    if (ip_str)
        strcpy (ip_str, my_ip_str);
