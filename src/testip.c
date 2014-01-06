@@ -16,9 +16,8 @@
 * with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <stdio.h>                  // Required for perror() and puts()
+#include <stdlib.h>                 // Required for atoi()
 #include "testip.h"
 
 int is_valid_ip(const char *my_ip_str) {
