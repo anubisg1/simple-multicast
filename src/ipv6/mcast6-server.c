@@ -49,9 +49,7 @@ int mcast6_server(const char *mcast_group, int destination_port, int delay_s ) {
   /* Fill out source socket's address information. */
   source_sin.sin6_family = AF_INET6;
   source_sin.sin6_port = htons (SOURCE_PORT);
-//  inet_pton(AF_INET6, in6addr_any, &(source_sin.sin6_addr) );
   source_sin.sin6_addr = in6addr_any;
-//  source_sin.sin6_addr =  IN6ADDR_ANY_INIT
 
   /* Associate the source socket's address with the socket, sock. */
   if (bind (sock, (struct sockaddr *)&source_sin, sizeof(source_sin)) == SOCKET_ERROR) {
