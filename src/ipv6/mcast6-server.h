@@ -26,11 +26,10 @@
 * with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __MCAST_SERVER_H__
-#define __MCAST_SERVER_H__
+#ifndef __MCAST6_SERVER_H__
+#define __MCAST6_SERVER_H__
 
 #include "../compatibility.h"
-
 /** \def SOURCE_PORT (0)
  *   A dummy source port number.
  */
