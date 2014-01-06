@@ -21,6 +21,14 @@
 #ifdef _WIN32
 #include <stdio.h>                  // Required for printf(), sprintf() and perror)
 
+/*
+* MingW defines an extern to this struct, but the actual struct isn't present
+* in any library. It's trivial enough that we can safely defined it
+* ourselves.
+*/
+const struct in6_addr in6addr_any = {{ IN6ADDR_ANY_INIT }};
+const struct in6_addr in6addr_loopback = {{ IN6ADDR_LOOPBACK_INIT }};
+
 /* we convert seconds in milliseconds and we call windows Sleep */
 void sleep(int delay_s) {
     int ms = 1000*delay_s;
