@@ -1,3 +1,8 @@
+0.1.3
+* Added IPv6 support for Server and client applications.
+* major code clean up
+* merged windows/unix code
+
 0.1.2
 * Fixed bug where user could enter any input. The program now verified that
   IPs and port numbers are in valid range

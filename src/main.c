@@ -40,7 +40,7 @@ int main() {
    system("clear");
 #endif
 
-   printf("simple-multicast version 0.1.2\n\n");
+   printf("simple-multicast version 0.1.3\n\n");
    do {
     printf("Menu:\n\n");
     printf("1. IPv4 - Multicast Server\n");
