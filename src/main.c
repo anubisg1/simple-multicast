@@ -22,6 +22,7 @@
 #include "ipv4/mcast-server.h"
 #include "ipv4/mcast-client.h"
 #include "ipv4/testip.h"
+#include "ipv6/mcast6-server.h"
 #include "ipv6/mcast6-client.h"
 #include "ipv6/testip6.h"
 
@@ -125,13 +126,33 @@ int main() {
        ssm_client(mcast_group, ssm_source, destination_port);
     }
     else if (strcmp(choice,"4") == 0 ) {
-        printf("IPv6 - Multicast Server not implemented yet\n");
+        printf("Enter the multicast destination address, in case of SSM\n");
+        printf("the IP must be in the range FF3x::/32: ");
+        scanf("%s", mcast_group);
+
+        if (validate_ip(mcast_group) != AF_INET6) {
+            printf("Invalid multicast group address!\n");
+            return 0;
+        }
+
+        printf("Enter the destination port number: ");
+        scanf("%d", &destination_port);
+        if (destination_port < 0 || destination_port > 65535) {
+            printf("Invalid port number!\n");
+            return 0;
+        }
+
+        printf("Enter the interval between packets in seconds: ");
+        scanf("%d", &delay);
+
+	/* we are ready , let start the server */
+        mcast6_server(mcast_group, destination_port, delay);
     }
     else if (strcmp(choice,"5") == 0 ) {
         printf("Enter the multicast group address to join: ");
         scanf("%s", mcast_group);
 
-        if (validate_ip(mcast_group) != AF_INET6 ) {
+        if (validate_ip(mcast_group) != AF_INET6) {
             printf("Invalid multicast group address!\n");
             return 0;
         }

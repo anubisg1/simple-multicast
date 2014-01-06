@@ -38,6 +38,10 @@
 #include <winsock2.h>
 #include <Ws2tcpip.h>
 
+/* fix mingw bug */
+//const struct in6_addr in6addr_any = {{ IN6ADDR_ANY_INIT }};
+//const struct in6_addr in6addr_loopback = {{ IN6ADDR_LOOPBACK_INIT }};
+
 void sleep(int delay_s);
 const char *inet_ntop(int af, const void *src, char *dst, socklen_t cnt);
 int inet_pton(int af, const char *src, void *dst);
@@ -69,12 +73,14 @@ typedef int SOCKET;
 #define INVALID_SOCKET (SOCKET)(~0)
 #endif // INVALID_SOCKET
 
-/** \typedef struct sockaddr_in SOCKADDR_IN;;
+/** \typedef struct sockaddr_in SOCKADDR_IN;
 * A simple declaration to make code more clear and compatible with winsock.
 */
 typedef struct sockaddr_in SOCKADDR_IN;
 
-
+/** \typedef struct sockaddr_in6 SOCKADDR_IN6;
+* A simple declaration to make code more clear and compatible with winsock.
+*/
 typedef struct sockaddr_in6 SOCKADDR_IN6;
 
 /** \def FALSE (0)
