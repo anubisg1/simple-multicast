@@ -18,6 +18,7 @@
 
 #include <stdio.h>                  // Required for perror() and puts()
 #include <stdlib.h>                 // Required for atoi()
+#include <string.h>		    // Required for memset()
 #include "testip.h"
 
 int is_valid_ip(const char *my_ip_str) {
