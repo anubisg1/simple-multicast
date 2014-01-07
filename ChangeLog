@@ -1,3 +1,6 @@
+0.2.1
+* Added Docygen documentation support
+
 0.2.0
 * Added IPv6 support for Server and client applications.
 * major code clean up :
