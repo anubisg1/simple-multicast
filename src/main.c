@@ -25,7 +25,16 @@
 #include "ipv6/mcast6-server.h"
 #include "ipv6/mcast6-client.h"
 
-#define VERSION "0.2.0" 
+#define VERSION "0.2.0"
+
+void clean_screen() {
+/* FIX ME - I don't like this solution */
+#ifdef _WIN32
+   system("cls");
+#else
+   system("clear");
+#endif
+}
 
 int main() {
    char mcast_group[INET6_ADDRSTRLEN] = "0.0.0.0";
@@ -34,12 +43,7 @@ int main() {
    int delay = 1;
    char choice[100] = "0";
 
-/* FIX ME - I don't like this solution */
-#ifdef _WIN32
-   system("cls");
-#else
-   system("clear");
-#endif
+   clean_screen();
 
    printf("simple-multicast version %s\n\n",  VERSION);
    do {
@@ -171,6 +175,7 @@ int main() {
     }
     else if (strcmp(choice,"6") == 0 ) {
         printf("IPv6 - Source Specific Multicast Client not implemented yet\n");
+        clean_screen();
     }
     else if (strcmp(choice,"7") == 0 ) {
         printf("Quitting program!\n");
@@ -178,14 +183,8 @@ int main() {
     }
     else {
         printf("Invalid choice! \n");
-
-/* FIX ME - I don't like this solution */
-#ifdef _WIN32
-        system("cls");
-#else
-        system("clear");
-#endif
-    }
+        clean_screen();
+       }
    } while (strcmp(choice,"7") != 0);
 
    return 0;
