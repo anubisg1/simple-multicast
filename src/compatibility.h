@@ -26,6 +26,20 @@
 * with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+/** Simple multicast Server/Client application.
+* Supports:
+*
+* * Multicast Server
+* * Multicast client
+* * Source Specific Multicast client
+*
+* Builds on Windows, *unix (tested on linux only), and Android
+* (for android you need c4droid to compile it , i will provide apk soon
+* https://play.google.com/store/apps/details?id=com.n0n3m4.droidc&hl=en )
+*
+* Due to Android BIONIC bug 64374 (https://code.google.com/p/android/issues/detail?id=64374 )
+* when compiling on Android with c4droid, please select as compiler "TCC + uClibc"
+*/
 
 #ifndef __COMPATIBILITY_H__
 #define __COMPATIBILITY_H__
@@ -42,6 +56,9 @@ typedef int bool;
 
 #ifdef _WIN32
 #ifndef _WIN32_WINNT
+/** \def _WIN32_WINNT 0x0501
+ *  Windows version must be >= XP or getaddrinfo will not be supported.
+ */
 #define _WIN32_WINNT 0x0501
 #endif // _WIN32_WINNT
 #include <windows.h>
