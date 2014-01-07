@@ -25,6 +25,8 @@
 #include "ipv6/mcast6-server.h"
 #include "ipv6/mcast6-client.h"
 
+#define VERSION 0.2.0
+
 int main() {
    char mcast_group[INET6_ADDRSTRLEN] = "0.0.0.0";
    char ssm_source[INET6_ADDRSTRLEN] = "0.0.0.0";
@@ -39,7 +41,7 @@ int main() {
    system("clear");
 #endif
 
-   printf("simple-multicast version 0.1.3\n\n");
+   printf("simple-multicast version %s\n\n",  VERSION);
    do {
     printf("Menu:\n\n");
     printf("1. IPv4 - Multicast Server\n");

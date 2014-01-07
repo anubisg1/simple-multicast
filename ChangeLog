@@ -1,4 +1,4 @@
-0.1.3
+0.2.0
 * Added IPv6 support for Server and client applications.
 * major code clean up :
  - merged windows/unix code
