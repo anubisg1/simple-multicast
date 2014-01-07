@@ -1,6 +1,12 @@
 ## Process this file with automake to produce Makefile.in
 
+include $(top_srcdir)/aminclude.am
+
 SUBDIRS = src 
+
+EXTRA_DIST = \
+	doxygen.cfg \
+	$(NULL)
 
 dist_doc_DATA = \
 	README \
