@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 
-AC_INIT(multicast, 0.1.3)
+AC_INIT(multicast, 0.2.0)
 
 AC_CONFIG_HEADERS([config.h])
 
