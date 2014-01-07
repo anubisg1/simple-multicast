@@ -25,7 +25,7 @@
 #include "ipv6/mcast6-server.h"
 #include "ipv6/mcast6-client.h"
 
-#define VERSION 0.2.0
+#define VERSION "0.2.0" 
 
 int main() {
    char mcast_group[INET6_ADDRSTRLEN] = "0.0.0.0";
