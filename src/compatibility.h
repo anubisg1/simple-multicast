@@ -26,7 +26,7 @@
 * with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-/** Simple multicast Server/Client application.
+/** \mainpage Simple multicast Server/Client application.
 * Supports:
 *
 * * Multicast Server
