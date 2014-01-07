@@ -27,7 +27,7 @@
 */
 
 /** \mainpage Simple multicast Server/Client application.
-* Supports:
+* Supports:\n
 *
 * * Multicast Server
 * * Multicast client
