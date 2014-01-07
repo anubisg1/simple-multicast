@@ -30,19 +30,18 @@
 #define __MCAST6_SERVER_H__
 
 #include "../compatibility.h"
-/** \def SOURCE_PORT (0)
- *   A dummy source port number.
- */
-#define SOURCE_PORT  0
 
 /** \fn int mcast6_server(const char *mcast_group, int destination_port, int delay_s);
-* Executes multicast server application for unix.
+* Executes multicast server application. Supports IPv6 only
 *
 * \param mcast_group Is a string containing the multicast group address.
 *
 * \param destination_port Is an int containing the destinaion UDP port number.
 *
 * \param delay_s Is an int (in seconds) defining the sleep period between packets.
+*
+* \return #FALSE in case of error and the description where error occurred.
+* In case of success the function will loop and never reach the end
 */
 int mcast6_server(const char *mcast_group, int destination_port, int delay_s);
 

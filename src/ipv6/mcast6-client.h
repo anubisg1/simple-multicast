@@ -31,6 +31,16 @@
 
 #include "../compatibility.h"
 
+/** \fn int mcast6_client(const char *mcast_group, int receiving_port);
+* Executes multicast client application. Supports IPv6 only
+*
+* \param mcast_group Is a string containing the multicast group address.
+*
+* \param receiving_port Is an int containing the UDP port number the client will listen to.
+*
+* \return #FALSE in case of error and the description where error occurred.
+* In case of success the function will loop and never reach the end
+*/
 int mcast6_client(const char *mcast_group, int receiving_port);
 //int ssm6_client(const char *mcast_group, const char *ssm_source, int receiving_port);
 

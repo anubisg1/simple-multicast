@@ -35,6 +35,11 @@
 */
 typedef int bool;
 
+/** \def SOURCE_PORT (0)
+ *   A dummy source port number.
+ */
+#define SOURCE_PORT  0
+
 #ifdef _WIN32
 #ifndef _WIN32_WINNT
 #define _WIN32_WINNT 0x0501
@@ -43,7 +48,15 @@ typedef int bool;
 #include <winsock2.h>
 #include <Ws2tcpip.h>
 
+/** \fn void sleep(int delay_s);
+* A wrapper for Windows. converts Unix sleep() to windows Sleep()
+*
+* \param delay_s Is a int indicating how long to sleep.
+*
+*/
 void sleep(int delay_s);
+
+/* wrapper for windows */
 const char *inet_ntop(int af, const void *src, char *dst, socklen_t cnt);
 int inet_pton(int af, const char *src, void *dst);
 
