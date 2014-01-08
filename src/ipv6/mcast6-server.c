@@ -46,6 +46,7 @@ int mcast6_server(const char *mcast_group, int destination_port, int delay_s ) {
   }
 
   /* Fill out source socket's address information. */
+  memset(&source_sin, 0, sizeof(SOCKADDR_IN6));
   source_sin.sin6_family = AF_INET6;
   source_sin.sin6_port = htons (SOURCE_PORT);
   source_sin.sin6_addr = in6addr_any;
@@ -65,6 +66,7 @@ int mcast6_server(const char *mcast_group, int destination_port, int delay_s ) {
   }
 
   /* Fill out the desination socket's address information. */
+  memset(&dest_sin, 0, sizeof(SOCKADDR_IN6));
   dest_sin.sin6_family = AF_INET6;
   dest_sin.sin6_port = htons(destination_port);
   inet_pton(AF_INET6, mcast_group, &(dest_sin.sin6_addr) );

@@ -45,6 +45,7 @@ int mcast6_client(const char *mcast_group, int receiving_port) {
   }
 
   /* Fill in the destination address information */
+  memset(&local_sin, 0, sizeof(SOCKADDR_IN6));
   local_sin.sin6_family = AF_INET6;
   local_sin.sin6_port = htons (receiving_port);
   local_sin.sin6_addr = in6addr_any;

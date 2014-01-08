@@ -44,6 +44,7 @@ int mcast_client(const char *mcast_group, int receiving_port) {
   }
 
   /* Fill in the destination address information */
+  memset(&local_sin, 0, sizeof(SOCKADDR_IN));
   local_sin.sin_family = AF_INET;
   local_sin.sin_port = htons(receiving_port);
   local_sin.sin_addr.s_addr = htonl(INADDR_ANY);
