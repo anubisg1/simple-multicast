@@ -1,5 +1,6 @@
 0.2.1
-* Added Docygen documentation support
+* Added Doxygen documentation support
+* Fixed IPv6 server
 
 0.2.0
 * Added IPv6 support for Server and client applications.
