@@ -20,6 +20,7 @@
 #include <time.h>                   // Required for time_t type and time() function
 #include <stdio.h>                  // Required for printf() and sprintf()
 #include <unistd.h>                 // Required for sleep()
+#include <string.h>					// Required for memset()
 #include "mcast6-server.h"           // Required for socks specific headers
 
 int mcast6_server(const char *mcast_group, int destination_port, int delay_s ) {

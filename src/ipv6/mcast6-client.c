@@ -17,6 +17,7 @@
 */
 
 #include <stdio.h>                  // Required for printf(), sprintf() and perror)
+#include <string.h>					// Required for memset()
 #include "mcast6-client.h"          // Required for socks specific headers
 
 int mcast6_client(const char *mcast_group, int receiving_port) {
