@@ -59,7 +59,7 @@ int mcast6_client(const char *mcast_group, int receiving_port) {
   }
 
   /* Join the multicast group from which to receive datagrams. */
-  inet_pton(AF_INET6, mcast_group, &(mreq.ipv6mr_multiaddr) );
+  inet_pton(AF_INET6, mcast_group, &(mreq.ipv6mr_multiaddr));
   mreq.ipv6mr_interface = 0;
 
 #ifdef _WIN32

@@ -25,7 +25,7 @@
 #include "ipv6/mcast6-server.h"
 #include "ipv6/mcast6-client.h"
 
-#define VERSION "0.2.1"
+#define VERSION "0.2.2"
 
 void clean_screen() {
 /* FIX ME - I don't like this solution */
@@ -39,6 +39,7 @@ void clean_screen() {
 int main() {
    char mcast_group[INET6_ADDRSTRLEN] = "0.0.0.0";
    char ssm_source[INET6_ADDRSTRLEN] = "0.0.0.0";
+   struct in6_addr ip_address;
    int destination_port = 1;
    int delay = 1;
    char choice[100] = "0";
@@ -135,7 +136,8 @@ int main() {
         printf("the IP must be in the range FF3x::/32: ");
         scanf("%s", mcast_group);
 
-        if (is_valid_ip(mcast_group) != AF_INET6) {
+        inet_pton(AF_INET6, mcast_group, &ip_address);
+        if (IN6_IS_ADDR_MULTICAST(&ip_address) == FALSE ) {
             printf("Invalid multicast group address!\n");
             return 0;
         }
@@ -157,7 +159,8 @@ int main() {
         printf("Enter the multicast group address to join: ");
         scanf("%s", mcast_group);
 
-        if (is_valid_ip(mcast_group) != AF_INET6) {
+        inet_pton(AF_INET6, mcast_group, &ip_address);
+        if (IN6_IS_ADDR_MULTICAST(&ip_address) == FALSE ) {
             printf("Invalid multicast group address!\n");
             return 0;
         }
@@ -176,6 +179,34 @@ int main() {
     else if (strcmp(choice,"6") == 0 ) {
         printf("IPv6 - Source Specific Multicast Client not implemented yet\n");
         clean_screen();
+/*
+        printf("Enter the multicast group address to join: ");
+        scanf("%s", mcast_group);
+
+        inet_pton(AF_INET6, mcast_group, &ip_address);
+        if (IN6_IS_ADDR_MULTICAST(&ip_address) == FALSE ) {
+            printf("Invalid multicast group address!\n");
+            return 0;
+        }
+
+        printf("Enter the ip address of the authorized source: ");
+        scanf("%s", ssm_source);
+
+        if (is_valid_ip(ssm_source) != AF_INET6) {
+            printf("Invalid multicast group address!\n");
+            return 0;
+        }
+        printf("Enter the port number to listen to: ");
+        scanf("%d", &destination_port);
+
+        if (destination_port < 0 || destination_port > 65535) {
+            printf("Invalid port number!\n");
+            return 0;
+        }
+
+        // we are ready , let start the client
+       ssm_client6(mcast_group, ssm_source, destination_port); */
+
     }
     else if (strcmp(choice,"7") == 0 ) {
         printf("Quitting program!\n");

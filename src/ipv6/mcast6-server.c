@@ -70,7 +70,7 @@ int mcast6_server(const char *mcast_group, int destination_port, int delay_s ) {
   memset(&dest_sin, 0, sizeof(SOCKADDR_IN6));
   dest_sin.sin6_family = AF_INET6;
   dest_sin.sin6_port = htons(destination_port);
-  inet_pton(AF_INET6, mcast_group, &(dest_sin.sin6_addr) );
+  inet_pton(AF_INET6, mcast_group, &(dest_sin.sin6_addr));
 
   /* Send packets to the multicasting address every "delay_s". */
   while (1) {
