@@ -178,6 +178,7 @@ int main() {
     }
     else if (strcmp(choice,"6") == 0 ) {
         printf("IPv6 - Source Specific Multicast Client not implemented yet\n");
+        sleep(3);
         clean_screen();
 /*
         printf("Enter the multicast group address to join: ");
@@ -214,6 +215,7 @@ int main() {
     }
     else {
         printf("Invalid choice! \n");
+        sleep(3);
         clean_screen();
        }
    } while (strcmp(choice,"7") != 0);
