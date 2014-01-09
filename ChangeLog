@@ -1,3 +1,8 @@
+0.2.2
+* We now verify that an IPv6 address is a valid multicast
+* Fixed inet_pton implementation on windows. IPv6 is fully working
+  also on windows now! :-)
+
 0.2.1
 * Added Doxygen documentation support
 * Fixed IPv6 server

@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 
-AC_INIT([multicast], [0.2.1], [http://simplemulticast.sourceforge.net])
+AC_INIT([multicast], [0.2.2], [http://simplemulticast.sourceforge.net])
 
 AC_CONFIG_HEADERS([config.h])
 
