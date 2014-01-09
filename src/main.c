@@ -36,6 +36,13 @@ void clean_screen() {
 #endif
 }
 
+void PressEnterToContinue() {
+  int c;
+  printf( "Press ENTER to continue... " );
+  fflush( stdout );
+  do c = getchar(); while ((c != '\n') && (c != EOF));
+  }
+
 int main() {
    char mcast_group[INET6_ADDRSTRLEN] = "0.0.0.0";
    char ssm_source[INET6_ADDRSTRLEN] = "0.0.0.0";
@@ -178,7 +185,8 @@ int main() {
     }
     else if (strcmp(choice,"6") == 0 ) {
         printf("IPv6 - Source Specific Multicast Client not implemented yet\n");
-        sleep(3);
+        fflush(stdin);
+        PressEnterToContinue();
         clean_screen();
 /*
         printf("Enter the multicast group address to join: ");
@@ -215,7 +223,8 @@ int main() {
     }
     else {
         printf("Invalid choice! \n");
-        sleep(3);
+        fflush(stdin);
+        PressEnterToContinue();
         clean_screen();
        }
    } while (strcmp(choice,"7") != 0);
