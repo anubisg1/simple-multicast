@@ -55,6 +55,8 @@ const char *inet_ntop(int af, const void *src, char *dst, socklen_t cnt) {
         return NULL;
 }
 
+
+/*
 int inet_pton(int af, const char *src, void *dst) {
         struct addrinfo hints, *res, *ressave;
 
@@ -77,6 +79,9 @@ int inet_pton(int af, const char *src, void *dst) {
         freeaddrinfo(ressave);
         return 0;
 }
+*/
+
+
 
 #else
 
