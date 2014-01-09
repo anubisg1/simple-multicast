@@ -38,8 +38,9 @@ void clean_screen() {
 
 void PressEnterToContinue() {
   int c;
-  printf( "Press ENTER to continue... " );
-  fflush( stdout );
+  fflush(stdin);
+  printf("Press ENTER to continue... ");
+  fflush(stdout);
   do c = getchar(); while ((c != '\n') && (c != EOF));
   }
 
@@ -185,7 +186,6 @@ int main() {
     }
     else if (strcmp(choice,"6") == 0 ) {
         printf("IPv6 - Source Specific Multicast Client not implemented yet\n");
-        fflush(stdin);
         PressEnterToContinue();
         clean_screen();
 /*
@@ -223,7 +223,6 @@ int main() {
     }
     else {
         printf("Invalid choice! \n");
-        fflush(stdin);
         PressEnterToContinue();
         clean_screen();
        }
