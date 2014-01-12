@@ -60,18 +60,15 @@ int ssm6_client(const char *mcast_group, const char *ssm_source, int receiving_p
   }
 
   /* Set up the connection to the group */
-//  mreq.gsr_interface = 0;
+  mreq.gsr_interface = 0;
+
+// not sure why pton doesn't work and memcpy does
+// also, it seems to work on Windows only...  
 //  inet_pton(AF_INET6, mcast_group, &(mreq.gsr_group));
 //  inet_pton(AF_INET6, ssm_source, &(mreq.gsr_source));
-//  SOCKADDR_IN6 g6;
-//  inet_pton(AF_INET6, mcast_group, &(g6.sin6_addr));
-//  memcpy(&mreq.gsr_group, &g6, sizeof(struct sockaddr_in6));
-//  inet_pton(AF_INET6, ssm_source, &(g6.sin6_addr));
-//  memcpy(&mreq.gsr_source, &g6, sizeof(struct sockaddr_in6));
 
-	mreq.gsr_interface = 0;
-	memcpy(&mreq.gsr_group, mcast_group, sizeof(struct sockaddr_in6));
-	memcpy(&mreq.gsr_source, ssm_source, sizeof(struct sockaddr_in6));
+	memcpy(&mreq.gsr_group, mcast_group, sizeof(SOCKADDR_IN6));
+	memcpy(&mreq.gsr_source, ssm_source, sizeof(SOCKADDR_IN6));
 
 #ifdef _WIN32
   if (setsockopt(sock, IPPROTO_IPV6, MCAST_JOIN_SOURCE_GROUP, (char *)&mreq, sizeof(mreq)) == SOCKET_ERROR) {
