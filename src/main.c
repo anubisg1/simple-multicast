@@ -194,11 +194,8 @@ int main() {
         clean_screen();
     }
     else if (strcmp(choice,"6") == 0 ) {
- /*       printf("IPv6 - Source Specific Multicast Client not implemented yet\n");
-        PressEnterToContinue();
-        clean_screen();*/
-
-      // still not working :-(
+        printf("IPv6 - Source Specific Multicast Client is still experimental\n");
+        /* still not working properly */
         printf("Enter the multicast destination address,\n");
         printf("the IP must be in the range FF3x::/32: ");
 
