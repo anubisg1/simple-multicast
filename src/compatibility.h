@@ -111,9 +111,6 @@ struct group_filter {
 #define MCAST_MSFILTER		47
 #define AI_ADDRCONFIG	0x20
 
-
-
-
 #else
 
 #include <sys/types.h>

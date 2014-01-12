@@ -199,7 +199,9 @@ int main() {
         clean_screen();*/
 
       // still not working :-(
-        printf("Enter the multicast group address to join: ");
+        printf("Enter the multicast destination address,\n");
+        printf("the IP must be in the range FF3x::/32: ");
+
         scanf("%s", mcast_group);
 
         inet_pton(AF_INET6, mcast_group, &ip_address);
