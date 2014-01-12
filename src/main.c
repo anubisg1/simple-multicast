@@ -194,16 +194,16 @@ int main() {
         clean_screen();
     }
     else if (strcmp(choice,"6") == 0 ) {
-        printf("IPv6 - Source Specific Multicast Client not implemented yet\n");
+ /*       printf("IPv6 - Source Specific Multicast Client not implemented yet\n");
         PressEnterToContinue();
-        clean_screen();
+        clean_screen();*/
 
-/*      // still not working :-(
+      // still not working :-(
         printf("Enter the multicast group address to join: ");
         scanf("%s", mcast_group);
 
         inet_pton(AF_INET6, mcast_group, &ip_address);
-        if (IN6_IS_ADDR_MULTICAST(&ip_address)) == TRUE ) {
+        if (IN6_IS_ADDR_MULTICAST(&ip_address) == TRUE ) {
             printf("Enter the ip address of the authorized source: ");
             scanf("%s", ssm_source);
 
@@ -228,7 +228,7 @@ int main() {
         }
         PressEnterToContinue();
         clean_screen();
-*/
+
     }
     else if (strcmp(choice,"7") == 0 ) {
         printf("Quitting program!\n");
