@@ -25,7 +25,8 @@ multicast_SOURCES = \
 	ipv6/mcast6-client.c \
 	ipv6/mcast6-client.h \
 	ipv6/mcast6-server.c \
-	ipv6/mcast6-server.h
+	ipv6/mcast6-server.h \
+        ipv6/ssm6-client.c 
 	
 multicast_LDFLAGS = 
 
