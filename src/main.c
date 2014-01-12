@@ -185,10 +185,11 @@ int main() {
         mcast6_client(mcast_group, destination_port);
     }
     else if (strcmp(choice,"6") == 0 ) {
-       /* printf("IPv6 - Source Specific Multicast Client not implemented yet\n");
+        printf("IPv6 - Source Specific Multicast Client not implemented yet\n");
         PressEnterToContinue();
-        clean_screen();*/
+        clean_screen();
 
+/*      // still not working :-(
         printf("Enter the multicast group address to join: ");
         scanf("%s", mcast_group);
 
@@ -215,7 +216,7 @@ int main() {
 
        // we are ready , let start the client
        ssm6_client(mcast_group, ssm_source, destination_port);
-
+*/
     }
     else if (strcmp(choice,"7") == 0 ) {
         printf("Quitting program!\n");
