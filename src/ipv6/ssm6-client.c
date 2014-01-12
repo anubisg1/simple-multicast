@@ -18,6 +18,7 @@
 
 
 #include <stdio.h>                  // Required for printf() and sprintf()
+#include <string.h>                 // Required for memset()
 #include "mcast6-client.h"
 
 int ssm6_client(const char *mcast_group, const char *ssm_source, int receiving_port) {
