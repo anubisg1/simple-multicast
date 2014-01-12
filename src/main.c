@@ -87,7 +87,7 @@ int main() {
         printf("Enter the interval between packets in seconds: ");
         scanf("%d", &delay);
 
-	/* we are ready , let start the server */
+	    /* we are ready , let start the server */
         mcast_server(mcast_group, destination_port, delay);
     }
     else if (strcmp(choice,"2") == 0 ) {
@@ -136,7 +136,7 @@ int main() {
             return 0;
         }
 
-        /* we are ready , let start the client */
+       /* we are ready , let start the client */
        ssm_client(mcast_group, ssm_source, destination_port);
     }
     else if (strcmp(choice,"4") == 0 ) {
@@ -160,7 +160,7 @@ int main() {
         printf("Enter the interval between packets in seconds: ");
         scanf("%d", &delay);
 
-	/* we are ready , let start the server */
+	    /* we are ready , let start the server */
         mcast6_server(mcast_group, destination_port, delay);
     }
     else if (strcmp(choice,"5") == 0 ) {
@@ -185,10 +185,10 @@ int main() {
         mcast6_client(mcast_group, destination_port);
     }
     else if (strcmp(choice,"6") == 0 ) {
-        printf("IPv6 - Source Specific Multicast Client not implemented yet\n");
+       /* printf("IPv6 - Source Specific Multicast Client not implemented yet\n");
         PressEnterToContinue();
-        clean_screen();
-/*
+        clean_screen();*/
+
         printf("Enter the multicast group address to join: ");
         scanf("%s", mcast_group);
 
@@ -213,8 +213,8 @@ int main() {
             return 0;
         }
 
-        // we are ready , let start the client
-       ssm_client6(mcast_group, ssm_source, destination_port); */
+       // we are ready , let start the client
+       ssm6_client(mcast_group, ssm_source, destination_port);
 
     }
     else if (strcmp(choice,"7") == 0 ) {

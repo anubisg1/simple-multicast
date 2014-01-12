@@ -80,40 +80,12 @@ int inet_pton (int af, const char *src, void *dst);
 int inet_pton4 (const char *src, unsigned char *dst);
 int inet_pton6 (const char *src, unsigned char *dst);
 
-/* protocol indipendent API (test only for now) */
-
-struct group_req {
-	u_long		gr_interface;
-	struct sockaddr_storage gr_group;
+//rfc3678
+struct group_source_req {
+   unsigned int32_t  gsr_interface; /* interface index */
+   struct sockaddr_storage gsr_group;     /* group address */
+   struct sockaddr_storage gsr_source;    /* source address */
 };
-
-typedef struct group_source_req {
-  ULONG            gsr_interface;
-  SOCKADDR_STORAGE gsr_group;
-  SOCKADDR_STORAGE gsr_source;
-} GROUP_SOURCE_REQ, *PGROUP_SOURCE_REQ;
-
-struct group_filter {
-	u_long		gf_interface;
-	struct sockaddr_storage	gf_group;
-	u_long		gf_fmode;
-	u_long		gf_numsrc;
-	struct sockaddr_storage	gf_slist[1];
-};
-
-/* RFC 3768 */
-#define MCAST_JOIN_GROUP	41
-#define MCAST_LEAVE_GROUP	42
-#define MCAST_BLOCK_SOURCE	43
-#define MCAST_UNBLOCK_SOURCE	44
-#define MCAST_JOIN_SOURCE_GROUP 45
-#define MCAST_LEAVE_SOURCE_GROUP    46
-#define MCAST_MSFILTER		47
-#define AI_ADDRCONFIG	0x20
-
-
-
-
 #else
 
 #include <sys/types.h>

@@ -28,7 +28,7 @@ int mcast6_client(const char *mcast_group, int receiving_port) {
   SOCKET sock = INVALID_SOCKET;       // Datagram window socket
   struct ipv6_mreq mreq;              // Used in adding or dropping multicasting addresses
   SOCKADDR_IN6 local_sin,             // Local socket's address
-              recv_sin;               // Holds the source address upon recvfrom function returns
+               recv_sin;              // Holds the source address upon recvfrom function returns
  #ifdef _WIN32
   WSADATA WSAData;                    // Contains details of the winsock implementation
 
