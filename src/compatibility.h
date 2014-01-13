@@ -65,6 +65,7 @@ typedef int bool;
 #include <windows.h>
 #include <winsock2.h>
 #include <Ws2tcpip.h>
+#include <unistd.h>
 
 /** \fn void sleep(int delay_s);
 * A wrapper for Windows. converts Unix sleep() to windows Sleep()
@@ -79,37 +80,6 @@ const char *inet_ntop(int af, const void *src, char *dst, socklen_t cnt);
 int inet_pton (int af, const char *src, void *dst);
 int inet_pton4 (const char *src, unsigned char *dst);
 int inet_pton6 (const char *src, unsigned char *dst);
-
-/* protocol indipendent API (test only for now) */
-
-struct group_req {
-	u_long		gr_interface;
-	struct sockaddr_storage gr_group;
-};
-
-typedef struct group_source_req {
-  ULONG            gsr_interface;
-  SOCKADDR_STORAGE gsr_group;
-  SOCKADDR_STORAGE gsr_source;
-} GROUP_SOURCE_REQ, *PGROUP_SOURCE_REQ;
-
-struct group_filter {
-	u_long		gf_interface;
-	struct sockaddr_storage	gf_group;
-	u_long		gf_fmode;
-	u_long		gf_numsrc;
-	struct sockaddr_storage	gf_slist[1];
-};
-
-/* RFC 3768 */
-#define MCAST_JOIN_GROUP	41
-#define MCAST_LEAVE_GROUP	42
-#define MCAST_BLOCK_SOURCE	43
-#define MCAST_UNBLOCK_SOURCE	44
-#define MCAST_JOIN_SOURCE_GROUP 45
-#define MCAST_LEAVE_SOURCE_GROUP    46
-#define MCAST_MSFILTER		47
-#define AI_ADDRCONFIG	0x20
 
 #else
 
@@ -165,5 +135,22 @@ typedef struct sockaddr_in6 SOCKADDR_IN6;
 void closesocket(SOCKET sock);
 
 #endif // _WIN32
+
+
+/* RFC 3768 protocol indipendent API (test only for now) */
+
+#ifndef MCAST_JOIN_SOURCE_GROUP
+#ifdef WIN32 /* Only useful on Vista and later */
+#define MCAST_JOIN_SOURCE_GROUP         45
+#endif
+#ifdef linux
+#define MCAST_JOIN_SOURCE_GROUP         46
+#endif
+struct group_source_req {
+  uint32_t                gsr_interface; /* interface index */
+  struct sockaddr_storage gsr_group;     /* group address */
+  struct sockaddr_storage gsr_source;    /* source address */
+};
+#endif
 
 #endif
