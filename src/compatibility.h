@@ -57,7 +57,7 @@ typedef int bool;
 #ifdef _WIN32
 #ifndef _WIN32_WINNT
 /** \def _WIN32_WINNT 0x0501
- *  Windows version must be >= XP or getaddrinfo will not be supported.
+ *  Windows version must be >= XP or getaddrinfo() will not be supported.
  */
 #define _WIN32_WINNT 0x0501
 #endif // _WIN32_WINNT
@@ -137,11 +137,26 @@ typedef struct sockaddr_storage SOCKADDR_STORAGE;
 #define TRUE !FALSE
 #endif // TRUE
 
+/** \fn void closesocket(SOCKET sock);
+* Compatibility wrapper for Linux. IT DOES NOTHING.
+*
+* \param sock Is a socket.
+*
+*/
 void closesocket(SOCKET sock);
 
 #endif // _WIN32
 
-int j_inet_pton(const char *src, struct sockaddr_storage *dst);
+/** \fn int j_inet_pton(const char *src, SOCKADDR_STORAGE *dst);
+* converts a humand read-able ip address into SOCKADDR_STORAGE
+*
+* \param src Is a pointer to the sting cointaining the IP address.
+*
+* \param dst Is a pointer to the #SOCKADDR_STORAGE where the IP is going to be stored into.
+*
+* \return This function returns 1 on success, 0 in case of failure
+*/
+int j_inet_pton(const char *src, SOCKADDR_STORAGE *dst);
 
 /* RFC 3768 protocol indipendent API (test only for now) */
 #ifndef MCAST_JOIN_SOURCE_GROUP
@@ -151,11 +166,14 @@ int j_inet_pton(const char *src, struct sockaddr_storage *dst);
 #ifdef linux
 #define MCAST_JOIN_SOURCE_GROUP         46
 #endif
+/** \struct struct group_source_req;
+* If it doesn't exist, we manually define a protocol indipendent struct according to RFC 3768
+*/
 struct group_source_req {
-  uint32_t                gsr_interface; /* interface index */
-  struct sockaddr_storage gsr_group;     /* group address */
-  struct sockaddr_storage gsr_source;    /* source address */
+  uint32_t         gsr_interface; /* interface index */
+  SOCKADDR_STORAGE gsr_group;     /* group address */
+  SOCKADDR_STORAGE gsr_source;    /* source address */
 };
-#endif
+#endif // MCAST_JOIN_SOURCE_GROUP
 
 #endif

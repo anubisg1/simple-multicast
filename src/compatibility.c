@@ -64,23 +64,21 @@ void closesocket(SOCKET sock) {
 
 #endif // _WIN32
 
-
-int j_inet_pton(const char *src, struct sockaddr_storage *dst) {
+/* converts a humand read-able ip address into SOCKADDR_STORAGE */
+int j_inet_pton(const char *src, SOCKADDR_STORAGE *dst) {
     struct sockaddr_in *sin;
     struct sockaddr_in6 *sin6;
 
-    memset(dst, 0, sizeof(struct sockaddr_storage));
+    memset(dst, 0, sizeof(SOCKADDR_STORAGE));
     sin = (struct sockaddr_in *)dst;
     sin6 = (struct sockaddr_in6 *)dst;
 
-    if(inet_pton(AF_INET, src, &sin->sin_addr) > 0)
-    {
+    if(inet_pton(AF_INET, src, &sin->sin_addr) > 0) {
     dst->ss_family = AF_INET;
     return 1;
     }
 
-    if(inet_pton(AF_INET6, src, &sin6->sin6_addr) > 0)
-    {
+    if(inet_pton(AF_INET6, src, &sin6->sin6_addr) > 0) {
     dst->ss_family = AF_INET6;
 #ifdef SIN6_LEN
     sin6->sin6_len = sizeof(struct sockaddr_in6);

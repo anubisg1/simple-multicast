@@ -30,8 +30,7 @@ int ssm6_client(const char *mcast_group, const char *ssm_source, int receiving_p
   SOCKET sock = INVALID_SOCKET;       // Datagram window socket
   SOCKADDR_IN6 local_sin,             // Local socket's address
                recv_sin;              // Holds the source address upon recvfrom function returns
-  SOCKADDR_STORAGE source,            // Holds the IPv6 address of the allowed source
-                   group;             // Holds the IPv6 address of the multicast group we join
+  SOCKADDR_STORAGE buffer;            // Holds the IPv6 address, just a buffer
 
 #ifdef _WIN32
   WSADATA WSAData;                    // Contains details of the winsock implementation
@@ -63,12 +62,18 @@ int ssm6_client(const char *mcast_group, const char *ssm_source, int receiving_p
   }
 
   /* Set up the connection to the group */
-  j_inet_pton(mcast_group, &group);
-  j_inet_pton(ssm_source, &source);
   memset(&mreq, 0, sizeof(mreq));
   mreq.gsr_interface = 0;
-  mreq.gsr_group = group;
-  mreq.gsr_source = source;
+
+  /* clean buffer and set the group address */
+  memset(&buffer, 0, sizeof(SOCKADDR_STORAGE));
+  j_inet_pton(mcast_group, &buffer);
+  mreq.gsr_group = buffer;
+
+  /* clean buffer and set the source address */
+  memset(&buffer, 0, sizeof(SOCKADDR_STORAGE));
+  j_inet_pton(ssm_source, &buffer);
+  mreq.gsr_source = buffer;
 
 
 #ifdef _WIN32
