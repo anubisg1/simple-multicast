@@ -118,6 +118,11 @@ typedef struct sockaddr_in SOCKADDR_IN;
 */
 typedef struct sockaddr_in6 SOCKADDR_IN6;
 
+/** \typedef struct sockaddr_storage SOCKADDR_STORAGE
+* A simple declaration to make code more clear and compatible with winsock.
+*/
+typedef struct sockaddr_storage SOCKADDR_STORAGE;
+
 /** \def FALSE (0)
 * Define the bool value \b FALSE as \b 0.
 */
@@ -136,9 +141,9 @@ void closesocket(SOCKET sock);
 
 #endif // _WIN32
 
+int j_inet_pton(const char *src, struct sockaddr_storage *dst);
 
 /* RFC 3768 protocol indipendent API (test only for now) */
-
 #ifndef MCAST_JOIN_SOURCE_GROUP
 #ifdef WIN32 /* Only useful on Vista and later */
 #define MCAST_JOIN_SOURCE_GROUP         45

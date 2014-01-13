@@ -55,34 +55,6 @@ const char *inet_ntop(int af, const void *src, char *dst, socklen_t cnt) {
         return NULL;
 }
 
-
-/*
-int inet_pton(int af, const char *src, void *dst) {
-        struct addrinfo hints, *res, *ressave;
-
-        memset(&hints, 0, sizeof(struct addrinfo));
-        hints.ai_family = af;
-
-        if (getaddrinfo(src, NULL, &hints, &res) != 0) {
-        //        dolog(LOG_ERR, "Couldn't resolve host %s\n", src);
-            perror("getaddrinfo");
-            return -1;
-        }
-
-        ressave = res;
-
-        while (res) {
-                memcpy(dst, res->ai_addr, res->ai_addrlen);
-                res = res->ai_next;
-        }
-
-        freeaddrinfo(ressave);
-        return 0;
-}
-*/
-
-
-
 #else
 
 /* we really don't want to do anything here */
@@ -90,3 +62,30 @@ void closesocket(SOCKET sock) {
 }
 
 #endif // _WIN32
+
+
+int j_inet_pton(const char *src, struct sockaddr_storage *dst) {
+    struct sockaddr_in *sin;
+    struct sockaddr_in6 *sin6;
+
+    memset(dst, 0, sizeof(struct sockaddr_storage));
+    sin = (struct sockaddr_in *)dst;
+    sin6 = (struct sockaddr_in6 *)dst;
+
+    if(inet_pton(AF_INET, src, &sin->sin_addr) > 0)
+    {
+    dst->ss_family = AF_INET;
+    return 1;
+    }
+
+    if(inet_pton(AF_INET6, src, &sin6->sin6_addr) > 0)
+    {
+    dst->ss_family = AF_INET6;
+#ifdef SIN6_LEN
+    sin6->sin6_len = sizeof(struct sockaddr_in6);
+#endif
+    return 1;
+    }
+
+    return 0;
+}

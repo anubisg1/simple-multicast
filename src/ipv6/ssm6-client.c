@@ -30,6 +30,8 @@ int ssm6_client(const char *mcast_group, const char *ssm_source, int receiving_p
   SOCKET sock = INVALID_SOCKET;       // Datagram window socket
   SOCKADDR_IN6 local_sin,             // Local socket's address
                recv_sin;              // Holds the source address upon recvfrom function returns
+  SOCKADDR_STORAGE source,            // Holds the IPv6 address of the allowed source
+                   group;             // Holds the IPv6 address of the multicast group we join
 
 #ifdef _WIN32
   WSADATA WSAData;                    // Contains details of the winsock implementation
@@ -61,20 +63,13 @@ int ssm6_client(const char *mcast_group, const char *ssm_source, int receiving_p
   }
 
   /* Set up the connection to the group */
- // not sure why pton doesn't work and memcpy does
- // also, it seems to work on Windows only...
+  j_inet_pton(mcast_group, &group);
+  j_inet_pton(ssm_source, &source);
   memset(&mreq, 0, sizeof(mreq));
   mreq.gsr_interface = 0;
-  SOCKADDR_IN6 g6; // temporary buffer
-  memset(&g6, 0, sizeof(g6)); // clean the buffer
-  inet_pton(AF_INET6, mcast_group, &(g6.sin6_addr));
-  memcpy(&mreq.gsr_group, &g6, sizeof(SOCKADDR_IN6));
-  memset(&g6, 0, sizeof(g6));  // clean the buffer
-  inet_pton(AF_INET6, ssm_source, &(g6.sin6_addr));
-  memcpy(&mreq.gsr_source, &g6, sizeof(SOCKADDR_IN6));
+  mreq.gsr_group = group;
+  mreq.gsr_source = source;
 
-//  inet_pton(AF_INET6, mcast_group, &(mreq.gsr_group));
-//  inet_pton(AF_INET6, ssm_source, &(mreq.gsr_source));
 
 #ifdef _WIN32
   if (setsockopt(sock, IPPROTO_IPV6, MCAST_JOIN_SOURCE_GROUP, (char *)&mreq, sizeof(mreq)) == SOCKET_ERROR) {
