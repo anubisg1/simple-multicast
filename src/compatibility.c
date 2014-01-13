@@ -20,7 +20,7 @@
 #include "compatibility.h"
 
 #ifdef _WIN32
-#include <stdio.h>                  // Required for printf(), sprintf() and perror)
+#include <stdio.h>                  // Required for printf(), sprintf() and perror()
 
 /*
 * MingW defines an extern to this struct, but the actual struct isn't present
