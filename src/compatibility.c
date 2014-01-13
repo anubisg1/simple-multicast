@@ -16,6 +16,7 @@
 * with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <string.h>                 // Required for memset()
 #include "compatibility.h"
 
 #ifdef _WIN32
