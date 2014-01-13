@@ -25,7 +25,7 @@
 #include "ipv6/mcast6-server.h"
 #include "ipv6/mcast6-client.h"
 
-#define VERSION "0.2.2"
+#define VERSION "0.2.3"
 
 void clean_screen() {
 /* FIX ME - I don't like this solution */
