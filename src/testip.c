@@ -18,7 +18,7 @@
 
 #include <stdio.h>                  // Required for perror() and puts()
 #include <stdlib.h>                 // Required for atoi()
-#include <string.h>		    // Required for memset()
+#include <string.h>		            // Required for memset()
 #include "testip.h"
 
 int is_valid_ip(const char *my_ip_str) {
@@ -65,44 +65,45 @@ int is_valid_ip(const char *my_ip_str) {
 }
 
 bool is_valid_mcast_ip4(const char *my_ip_str) {
+
     int num;
 
     /* if is a NULL pointer is not valid */
-    if (my_ip_str == NULL)
-        return FALSE;
+    if (my_ip_str != NULL) {
 
-    /* sring must be an IPv4 address */
-    if(is_valid_ip(my_ip_str) != AF_INET)
-        return FALSE;
+		/* sring must be an IPv4 address */
+		if(is_valid_ip(my_ip_str) == AF_INET) {
 
-    /* atoi stops when it encounters the
-    first character that isn't a number */
-    num = atoi(my_ip_str);
-    /* check for valid IP range, we verify just 1st octect */
-    if (num < 224 || num > 239)
-        return FALSE;
+			/* atoi stops when it encounters the first character that isn't a number */
+			num = atoi(my_ip_str);
 
-    return TRUE;
+			/* check for valid IP range, we verify just 1st octect */
+			if (num >= 224 && num <= 239) {
+				return TRUE;
+			}
+		}
+	}
+    return FALSE;
 }
 
 int is_valid_ssm_ip4(const char *my_ip_str) {
+
     int num;
 
     /* if is a NULL pointer is not valid */
-    if (my_ip_str == NULL)
-        return FALSE;
+    if (my_ip_str != NULL) {
 
-    /* sring must be an IPv4 address */
-    if(is_valid_ip(my_ip_str) != AF_INET)
-        return FALSE;
+		/* sring must be an IPv4 address */
+		if(is_valid_ip(my_ip_str) == AF_INET) {
 
-    /* atoi stops when it encounters the
-    first character that isn't a number */
-    num = atoi(my_ip_str);
+			/* atoi stops when it encounters the first character that isn't a number */
+			num = atoi(my_ip_str);
 
-    /* check for valid IP range, we verify just 1st octect  */
-    if (num != 232 )
-        return FALSE;
-
-    return TRUE;
+			/* check for valid IP range, we verify just 1st octect */
+			if (num == 232) {
+				return TRUE;
+			}
+		}
+	}
+    return FALSE;
 }
