@@ -67,6 +67,7 @@ int is_valid_ip(const char *my_ip_str) {
 bool is_valid_mcast_ip4(const char *my_ip_str) {
 
     int num;
+    bool value;
 
     /* if is a NULL pointer is not valid */
     if (my_ip_str != NULL) {
@@ -79,16 +80,21 @@ bool is_valid_mcast_ip4(const char *my_ip_str) {
 
 			/* check for valid IP range, we verify just 1st octect */
 			if (num >= 224 && num <= 239) {
-				return TRUE;
-			}
-		}
-	}
-    return FALSE;
+				value = TRUE;
+			} else
+                value = FALSE;
+		} else
+            value = FALSE;
+	} else
+        value = FALSE;
+
+    return value;
 }
 
 int is_valid_ssm_ip4(const char *my_ip_str) {
 
     int num;
+    bool value;
 
     /* if is a NULL pointer is not valid */
     if (my_ip_str != NULL) {
@@ -101,9 +107,13 @@ int is_valid_ssm_ip4(const char *my_ip_str) {
 
 			/* check for valid IP range, we verify just 1st octect */
 			if (num == 232) {
-				return TRUE;
-			}
-		}
-	}
-    return FALSE;
+				value = TRUE;
+			} else
+                value = FALSE;
+		} else
+            value = FALSE;
+	} else
+        value = FALSE;
+
+    return value;
 }
