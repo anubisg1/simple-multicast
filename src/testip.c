@@ -25,43 +25,48 @@ int is_valid_ip(const char *my_ip_str) {
 
   struct addrinfo hint, *res = NULL;
   int ret;
+  int value;
  #ifdef _WIN32
   WSADATA WSAData;                    // Contains details of the winsock implementation
 
   /* Initialize Winsock. */
   if (WSAStartup (MAKEWORD(2,2), &WSAData) != 0) {
     perror("WSAStartup");
-    return FALSE;
+    return FALSE; // we want windows code separeted, we can ignore structred programming here
   }
 #endif // _WIN32
-  memset(&hint, '\0', sizeof hint);
 
+  memset(&hint, '\0', sizeof hint);
   hint.ai_family = PF_UNSPEC;
   hint.ai_flags = AI_NUMERICHOST;
 
   ret = getaddrinfo(my_ip_str, NULL, &hint, &res);
-  if (ret) {
-  /* put perror */
-    puts("Invalid address");
-    puts(gai_strerror(ret));
-    return -1;
-  }
-  if(res->ai_family == AF_INET) {
-	freeaddrinfo(res);
-	return AF_INET;
-  } else if (res->ai_family == AF_INET6) {
-	freeaddrinfo(res);
-    return AF_INET6;
+  if (!ret) {
+
+    if(res->ai_family == AF_INET) {
+		freeaddrinfo(res);
+		value = AF_INET;
+	} else if (res->ai_family == AF_INET6) {
+		freeaddrinfo(res);
+		value = AF_INET6;
+	} else {
+		/* put perror */
+        freeaddrinfo(res);
+		value = -1;
+	}
   } else {
     /* put perror */
-    return -1;
+    puts("Invalid address");
+    puts(gai_strerror(ret));
+    value = -1;
+    freeaddrinfo(res);
   }
 
-  freeaddrinfo(res);
 #ifdef _WIN32
   WSACleanup ();
 #endif // _WIN32
-  return -1;
+
+  return value;
 }
 
 bool is_valid_mcast_ip4(const char *my_ip_str) {
