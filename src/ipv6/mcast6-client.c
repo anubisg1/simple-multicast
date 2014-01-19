@@ -63,9 +63,9 @@ int mcast6_client(const char *mcast_group, int receiving_port) {
   mreq.ipv6mr_interface = 0;
 
 #ifdef _WIN32
-  if (setsockopt(sock, IPPROTO_IPV6, IPV6_ADD_MEMBERSHIP, (char *)&mreq, sizeof(mreq)) == SOCKET_ERROR) {
+  if (setsockopt(sock, IPPROTO_IPV6, IPV6_JOIN_GROUP, (char *)&mreq, sizeof(mreq)) == SOCKET_ERROR) {
 #else
-  if (setsockopt(sock, IPPROTO_IPV6, IPV6_ADD_MEMBERSHIP, &mreq, sizeof(mreq)) == SOCKET_ERROR) {
+  if (setsockopt(sock, IPPROTO_IPV6, IPV6_JOIN_GROUP, &mreq, sizeof(mreq)) == SOCKET_ERROR) {
 #endif //_WIN32
     perror("setsockopt mreq");
     closesocket(sock);
