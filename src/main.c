@@ -42,9 +42,30 @@ void PressEnterToContinue() {
   printf("Press ENTER to continue... ");
   fflush(stdout);
   do c = getchar(); while ((c != '\n') && (c != EOF));
-  }
+}
 
-int main() {
+void print_help() {
+    printf("simple-multicast version %s\n\n",  VERSION); // probably will be removed
+    printf("Usage: ./multicast [PROTOCOL] [OPERATIONAL MODE] [OPTION] [OPTION] ... \n\n");
+    printf("Run without arguments to run the interactive console.\n");
+    printf("To run without interaction, use the options below.\n");
+    printf("One per each group is required\n\n");
+    printf("IP protocol version:\n");
+    printf("  -v4\t\t\twill use IPv4\n");
+    printf("  -v6\t\t\twill use IPv6\n\n");
+    printf("Operational mode:\n");
+    printf("  -server\t\tRun as a multicast server\n");
+    printf("  -client\t\tRun as a multicast client\n");
+    printf("  -client-ssm\t\tRun as a multicast client with SSM support\n\n");
+    printf("Options:\n");
+    printf("  -group [IP ADDRESS]\tSpecify the Multicast group's IP address\n");
+    printf("  -source [IP ADDRESS]\tONLY if '-client-ssm' is used\n\t\t\tSpecify the IP address of the authorized source\n");
+    printf("  -port [NUMBER]\tSelect the port number. Below 1024 requires\n\t\t\tadministator rights\n");
+    printf("  -delay [NUMBER]\tONLY if '-server' is used\n\t\t\tSet the delay, in seconds, beteween packets\n");
+
+}
+
+int main(int argc, char *argv[]) {
    char mcast_group[INET6_ADDRSTRLEN] = "0.0.0.0";
    char ssm_source[INET6_ADDRSTRLEN] = "0.0.0.0";
    struct in6_addr ip_address;
@@ -53,7 +74,6 @@ int main() {
    char choice[100] = "0";
 
    clean_screen();
-
    printf("simple-multicast version %s\n\n",  VERSION);
    do {
     printf("Menu:\n\n");
