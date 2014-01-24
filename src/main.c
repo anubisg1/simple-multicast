@@ -45,10 +45,11 @@ void PressEnterToContinue() {
 }
 
 void print_help() {
-    printf("simple-multicast version %s\n\n",  VERSION); // probably will be removed
     printf("Usage: ./multicast [PROTOCOL] [OPERATIONAL MODE] [OPTION] [OPTION] ... \n\n");
     printf("Run without arguments to run the interactive console.\n");
     printf("To run without interaction, use the options below.\n");
+	printf("  --version\tprint current version and exit");
+	printf("  --help\tprint this help and exit");
     printf("One per each group is required\n\n");
     printf("IP protocol version:\n");
     printf("  -v4\t\t\twill use IPv4\n");
@@ -62,7 +63,6 @@ void print_help() {
     printf("  -source [IP ADDRESS]\tONLY if '-client-ssm' is used\n\t\t\tSpecify the IP address of the authorized source\n");
     printf("  -port [NUMBER]\tSelect the port number. Below 1024 requires\n\t\t\tadministator rights\n");
     printf("  -delay [NUMBER]\tONLY if '-server' is used\n\t\t\tSet the delay, in seconds, beteween packets\n");
-
 }
 
 int main(int argc, char *argv[]) {
@@ -261,4 +261,3 @@ int main(int argc, char *argv[]) {
 
    return 0;
 }
-
