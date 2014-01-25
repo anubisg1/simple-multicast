@@ -282,7 +282,7 @@ int main(int argc, char *argv[]) {
             printf("version %s\n",  VERSION);
         }
         else {
-            printf("invalid option. Run again with \"--help\" for usage manual\n");
+            print_error_and_exit();
         }
    }
    else if (argc == 7) {
