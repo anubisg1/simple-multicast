@@ -25,7 +25,7 @@
 #include "ipv6/mcast6-server.h"
 #include "ipv6/mcast6-client.h"
 
-#define VERSION "0.2.3.1"
+#define VERSION "0.2.4"
 
 void clean_screen() {
 /* FIX ME - I don't like this solution */
@@ -268,7 +268,6 @@ void interactive_menu() {
 
 int main(int argc, char *argv[]) {
 
-   int destination_port = 1;
    struct in6_addr ip_address;
 
    if (argc == 1) {
@@ -282,17 +281,20 @@ int main(int argc, char *argv[]) {
             printf("version %s\n",  VERSION);
         }
         else {
-            printf("invalid option. Run again with \"--help\" for usage manual\n");
+            print_error_and_exit();
         }
    }
    else if (argc == 7) {
-        if ((strcmp(argv[2],"-client") == 0) && (strcmp(argv[3],"-group") == 0) && (strcmp(argv[5],"-port") == 0)) {
-            if (strcmp(argv[1],"-v4") == 0) { // we are using IPv4
+       /* I don't like to put arguments on new line but is easier to read this time */
+        if ((strcmp(argv[2],"-client") == 0) &&
+            (strcmp(argv[3],"-group") == 0) &&
+            (strcmp(argv[5],"-port") == 0)) {
+
+            if (strcmp(argv[1],"-v4") == 0) { /* we are using IPv4 */
                 if (is_valid_mcast_ip4(argv[4]) == TRUE ) {
-                        destination_port = atoi(argv[6]);
-                        if (destination_port >= 0 && destination_port <= 65535) {
+                        if (atoi(argv[6]) >= 0 && atoi(argv[6]) <= 65535) {
                             /* we are ready , let start the client */
-                            mcast_client(argv[4], destination_port);
+                            mcast_client(argv[4], atoi(argv[6]));
                         }
                         else {
                             printf("Invalid port number!\n");
@@ -302,13 +304,12 @@ int main(int argc, char *argv[]) {
                     printf("Invalid multicast group address!\n");
                 }
             }
-            else if (strcmp(argv[1],"-v6") == 0) { // we are using IPv4
+            else if (strcmp(argv[1],"-v6") == 0) { /* we are using IPv6 */
                 inet_pton(AF_INET6, argv[4], &ip_address);
                 if (IN6_IS_ADDR_MULTICAST(&ip_address) == TRUE ) {
-                        destination_port = atoi(argv[6]);
-                        if (destination_port >= 0 && destination_port <= 65535) {
+                        if (atoi(argv[6]) >= 0 && atoi(argv[6]) <= 65535) {
                             /* we are ready , let start the client */
-                            mcast6_client(argv[4], destination_port);
+                            mcast6_client(argv[4], atoi(argv[6]));
                         }
                         else {
                             printf("Invalid port number!\n");
@@ -326,10 +327,100 @@ int main(int argc, char *argv[]) {
         else {
             print_error_and_exit();
         }
-
    }
    else if (argc == 9) {
-        printf("work in progress :-)\n");
+        /* I don't like to put arguments on new line but is easier to read this time */
+        if ((strcmp(argv[2],"-server") == 0) &&
+            (strcmp(argv[3],"-group") == 0) &&
+            (strcmp(argv[5],"-port") == 0) &&
+            (strcmp(argv[7],"-delay") == 0)) {
+
+            if (strcmp(argv[1],"-v4") == 0) { /* we are using IPv4 */
+                if (is_valid_mcast_ip4(argv[4]) == TRUE ) {
+                        if (atoi(argv[6]) >= 0 && atoi(argv[6]) <= 65535) {
+                            /* we are ready , let start the server */
+                            mcast_server(argv[4], atoi(argv[6]), atoi(argv[8]));
+                        }
+                        else {
+                            printf("Invalid port number!\n");
+                        }
+                }
+                else {
+                    printf("Invalid multicast group address!\n");
+                }
+            }
+            else if (strcmp(argv[1],"-v6") == 0) { /* we are using IPv6 */
+                inet_pton(AF_INET6, argv[4], &ip_address);
+                if (IN6_IS_ADDR_MULTICAST(&ip_address) == TRUE ) {
+                        if (atoi(argv[6]) >= 0 && atoi(argv[6]) <= 65535) {
+                            /* we are ready , let start the server */
+                            mcast6_server(argv[4], atoi(argv[6]), atoi(argv[8]));
+                        }
+                        else {
+                            printf("Invalid port number!\n");
+                        }
+                }
+                else {
+                    printf("Invalid multicast group address!\n");
+                }
+            }
+            else {
+                print_error_and_exit();
+            }
+        }
+        /* I don't like to put arguments on new line but is easier to read this time */
+        else if ((strcmp(argv[2],"-client-ssm") == 0) &&
+                 (strcmp(argv[3],"-group") == 0) &&
+                 (strcmp(argv[5],"-source") == 0) &&
+                 (strcmp(argv[7],"-port") == 0)) {
+
+            if (strcmp(argv[1],"-v4") == 0) { /* we are using IPv4 */
+                if (is_valid_ssm_ip4(argv[4]) == TRUE ) {
+				        if (is_valid_ip(argv[6]) == AF_INET ) {
+							if (atoi(argv[8]) >= 0 && atoi(argv[8]) <= 65535) {
+								/* we are ready , let start the client */
+								ssm_client(argv[4], argv[6], atoi(argv[8]));
+							}
+							else {
+								printf("Invalid port number!\n");
+                            }
+				        }
+						else {
+							printf("Invalid IP address\n");
+						}
+                }
+                else {
+                    printf("Invalid multicast group address!\n");
+                }
+            }
+            else if (strcmp(argv[1],"-v6") == 0) { /* we are using IPv6 */
+                inet_pton(AF_INET6, argv[4], &ip_address);
+                if (IN6_IS_ADDR_MULTICAST(&ip_address) == TRUE ) {
+				        if (is_valid_ip(argv[6]) == AF_INET6 ) {
+							if (atoi(argv[8]) >= 0 && atoi(argv[8]) <= 65535) {
+								/* we are ready , let start the client */
+								ssm6_client(argv[4], argv[6], atoi(argv[8]));
+							}
+							else {
+								printf("Invalid port number!\n");
+                            }
+				        }
+						else {
+							printf("Invalid IP address\n");
+						}
+                }
+                else {
+                    printf("Invalid multicast group address!\n");
+                }
+            }
+            else {
+                print_error_and_exit();
+            }
+        }
+        else {
+            print_error_and_exit();
+        }
+
    }
    else {
         print_error_and_exit();
