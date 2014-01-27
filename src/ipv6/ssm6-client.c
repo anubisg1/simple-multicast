@@ -21,16 +21,15 @@
 #include <string.h>                 // Required for memset()
 #include "mcast6-client.h"
 
-int ssm6_client(const char *mcast_group, const char *ssm_source, int receiving_port) {
+int ssm6_client(SOCKADDR_STORAGE *mcast_group, SOCKADDR_STORAGE *ssm_source, int receiving_port) {
 
   struct group_source_req mreq;       // SSM information container
   socklen_t addrlen;                  // Length of recv_sin
   char message[100];                  // ASCII string
   char ipstr[INET6_ADDRSTRLEN];       // string where we store the source ip address
   SOCKET sock = INVALID_SOCKET;       // Datagram window socket
-  SOCKADDR_IN6 local_sin,             // Local socket's address
-               recv_sin;              // Holds the source address upon recvfrom function returns
-  SOCKADDR_STORAGE buffer;            // Holds the IPv6 address, just a buffer
+  SOCKADDR_STORAGE local_sin,         // Local socket's address
+                   recv_sin;          // Holds the source address upon recvfrom function returns
 
 #ifdef _WIN32
   WSADATA WSAData;                    // Contains details of the winsock implementation
@@ -42,17 +41,23 @@ int ssm6_client(const char *mcast_group, const char *ssm_source, int receiving_p
   }
 #endif // _WIN32
 
+
+  if (mcast_group->ss_family != ssm_source->ss_family) {
+    perror("Different address family");
+    return FALSE;
+  }
+
   /* Create a datagram socket, sock. */
-  if ((sock = socket(AF_INET6, SOCK_DGRAM, 0)) == INVALID_SOCKET) {
+  if ((sock = socket(mcast_group->ss_family, SOCK_DGRAM, 0)) == INVALID_SOCKET) {
     perror("sock");
     return FALSE;
   }
 
   /* Fill in the destination address information */
-  memset(&local_sin, 0, sizeof(SOCKADDR_IN6));
-  local_sin.sin6_family = AF_INET6;
+  memset(&local_sin, 0, sizeof(SOCKADDR_STORAGE));
+  local_sin.ss_family = mcast_group->ss_family;
   local_sin.sin6_port = htons (receiving_port);
-  local_sin.sin6_addr = in6addr_any;
+  local_sin.sin6_addr = AI_PASSIVE;
 
   /* Associate the local address with the sock */
   if (bind(sock, (struct sockaddr *)&local_sin, sizeof(local_sin)) == SOCKET_ERROR) {
@@ -64,16 +69,10 @@ int ssm6_client(const char *mcast_group, const char *ssm_source, int receiving_p
   /* Set up the connection to the group */
   memset(&mreq, 0, sizeof(mreq));
   mreq.gsr_interface = 0;
+  mreq.gsr_group = mcast_group;
+  mreq.gsr_source = ssm_source;
 
-  /* clean buffer and set the group address */
-  memset(&buffer, 0, sizeof(SOCKADDR_STORAGE));
-  j_inet_pton(mcast_group, &buffer);
-  mreq.gsr_group = buffer;
-
-  /* clean buffer and set the source address */
-  memset(&buffer, 0, sizeof(SOCKADDR_STORAGE));
-  j_inet_pton(ssm_source, &buffer);
-  mreq.gsr_source = buffer;
+//  j_inet_pton(ssm_source, &buffer);
 
 
 #ifdef _WIN32

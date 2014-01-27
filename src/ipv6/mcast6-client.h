@@ -55,6 +55,6 @@ int mcast6_client(const char *mcast_group, int receiving_port);
 * \return #FALSE in case of error and the description where error occurred.
 * In case of success the function will loop and never reach the end
 */
-int ssm6_client(const char *mcast_group, const char *ssm_source, int receiving_port);
+int ssm6_client(SOCKADDR_STORAGE *mcast_group, SOCKADDR_STORAGE *ssm_source, int receiving_port);
 
 #endif
