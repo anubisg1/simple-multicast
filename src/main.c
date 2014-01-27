@@ -69,7 +69,7 @@ void print_help() {
     printf("  multicast -v4 -client-ssm -group 232.1.2.3 -source 10.0.0.1 -port 9999\n");
 }
 
-void print_error_and_exit() {
+void print_error() {
     printf("invalid options. Run again with \"--help\" for usage manual\n");
 }
 
@@ -281,7 +281,7 @@ int main(int argc, char *argv[]) {
             printf("version %s\n",  VERSION);
         }
         else {
-            print_error_and_exit();
+            print_error();
         }
    }
    else if (argc == 7) {
@@ -321,11 +321,11 @@ int main(int argc, char *argv[]) {
 
             }
             else {
-                print_error_and_exit();
+                print_error();
             }
         }
         else {
-            print_error_and_exit();
+            print_error();
         }
    }
    else if (argc == 9) {
@@ -365,7 +365,7 @@ int main(int argc, char *argv[]) {
                 }
             }
             else {
-                print_error_and_exit();
+                print_error();
             }
         }
         /* I don't like to put arguments on new line but is easier to read this time */
@@ -414,16 +414,16 @@ int main(int argc, char *argv[]) {
                 }
             }
             else {
-                print_error_and_exit();
+                print_error();
             }
         }
         else {
-            print_error_and_exit();
+            print_error();
         }
 
    }
    else {
-        print_error_and_exit();
+        print_error();
    }
 
    return 0;
