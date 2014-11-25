@@ -30,9 +30,9 @@
 void clean_screen() {
 /* FIX ME - I don't like this solution */
 #ifdef _WIN32
-   (void) system("cls");
+   system("cls");
 #else
-   (void) system("clear");
+   system("clear");
 #endif
 }
 
