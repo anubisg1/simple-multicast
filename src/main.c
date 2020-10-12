@@ -63,7 +63,7 @@ void print_help() {
     printf("  -source [IP ADDRESS]\tONLY if '-client-ssm' is used\n\t\t\tSpecify the IP address of the authorized source\n");
     printf("  -port [NUMBER]\tSelect the port number. Below 1024 requires\n\t\t\tadministator rights\n");
     printf("  -delay [NUMBER]\tONLY if '-server' is used\n\t\t\tSet the delay, in seconds, beteween packets\n");
-    printf("  -ttl [NUMBER]\tONLY if '-server' is used\n\t\t\tSet the ttl, between 1 and 255\n");
+    printf("  -ttl [NUMBER]\t\tONLY if '-server' is used\n\t\t\tSet the ttl, between 1 and 255\n");
     printf("Example of usage:\n");
     printf("  multicast -v4 -server -group 239.1.2.3 -port 9999 -ttl 64 -delay 1\n");
     printf("  multicast -v6 -client -group FF05::3232 -port 9999\n");
