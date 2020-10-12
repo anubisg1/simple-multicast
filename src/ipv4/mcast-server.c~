@@ -23,8 +23,9 @@
 #include <string.h>					// Required for memset()
 #include "mcast-server.h"           // Required for socks specific headers
 
-int mcast_server(const char *mcast_group, int destination_port, int delay_s, int ttl ) {
+int mcast_server(const char *mcast_group, int destination_port, int delay_s ) {
 
+  int ttl = 64;                     // IP TTL
   char message[50];                 // Sent message string
   SOCKET sock = INVALID_SOCKET;     // Datagram window socket
   SOCKADDR_IN source_sin,           // Source socket address

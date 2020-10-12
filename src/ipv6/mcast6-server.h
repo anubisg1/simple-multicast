@@ -43,6 +43,6 @@
 * \return #FALSE in case of error and the description where error occurred.
 * In case of success the function will loop and never reach the end
 */
-int mcast6_server(const char *mcast_group, int destination_port, int delay_s);
+int mcast6_server(const char *mcast_group, int destination_port, int delay_s, int ttl);
 
 #endif

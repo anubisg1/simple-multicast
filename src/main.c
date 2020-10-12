@@ -25,7 +25,7 @@
 #include "ipv6/mcast6-server.h"
 #include "ipv6/mcast6-client.h"
 
-#define VERSION "0.2.4"
+#define VERSION "0.2.5"
 
 void clean_screen() {
 /* FIX ME - I don't like this solution */
@@ -63,8 +63,9 @@ void print_help() {
     printf("  -source [IP ADDRESS]\tONLY if '-client-ssm' is used\n\t\t\tSpecify the IP address of the authorized source\n");
     printf("  -port [NUMBER]\tSelect the port number. Below 1024 requires\n\t\t\tadministator rights\n");
     printf("  -delay [NUMBER]\tONLY if '-server' is used\n\t\t\tSet the delay, in seconds, beteween packets\n");
+    printf("  -ttl [NUMBER]\tONLY if '-server' is used\n\t\t\tSet the ttl, between 1 and 255\n");
     printf("Example of usage:\n");
-    printf("  multicast -v4 -server -group 239.1.2.3 -port 9999 -delay 1\n");
+    printf("  multicast -v4 -server -group 239.1.2.3 -port 9999 -ttl 64 -delay 1\n");
     printf("  multicast -v6 -client -group FF05::3232 -port 9999\n");
     printf("  multicast -v4 -client-ssm -group 232.1.2.3 -source 10.0.0.1 -port 9999\n");
 }
@@ -79,6 +80,7 @@ void interactive_menu() {
    char ssm_source[INET6_ADDRSTRLEN] = "0.0.0.0";
    int destination_port = 1;
    int delay = 1;
+   int ttl = 1;
    struct in6_addr ip_address;
    char choice[100] = "0";
 
@@ -102,10 +104,19 @@ void interactive_menu() {
             printf("Enter the destination port number: ");
             scanf("%d", &destination_port);
             if (destination_port >= 0 && destination_port <= 65535) {
-                    printf("Enter the interval between packets in seconds: ");
-                    scanf("%d", &delay);
-                    /* we are ready , let start the server */
-                    mcast_server(mcast_group, destination_port, delay);
+                    printf("Enter the TTL value: ");
+                    scanf("%d", &ttl);
+                    if (ttl >= 1 && ttl <= 255) {
+                        printf("Enter the interval between packets in seconds: ");
+                        scanf("%d", &delay);
+                        /* we are ready , let start the server */
+                        mcast_server(mcast_group, destination_port, delay, ttl);
+                        
+                    }
+                    else {
+                        printf("invalid TTL value!\n");
+                        
+                    }
             }
             else {
                     printf("Invalid port number!\n");
@@ -180,11 +191,19 @@ void interactive_menu() {
             printf("Enter the destination port number: ");
             scanf("%d", &destination_port);
             if (destination_port >= 0 && destination_port <= 65535) {
-                    printf("Enter the interval between packets in seconds: ");
-                    scanf("%d", &delay);
-
-                    /* we are ready , let start the server */
-                    mcast6_server(mcast_group, destination_port, delay);
+                    printf("Enter the TTL value: ");
+                    scanf("%d", &ttl);
+                    if (ttl >= 1 && ttl <= 255) {
+                        printf("Enter the interval between packets in seconds: ");
+                        scanf("%d", &delay);
+                        /* we are ready , let start the server */
+                        mcast6_server(mcast_group, destination_port, delay, ttl);
+                        
+                    }
+                    else {
+                        printf("invalid TTL value!\n");
+                        
+                    }
             }
             else {
                     printf("Invalid port number!\n");
@@ -285,14 +304,14 @@ int main(int argc, char *argv[]) {
         }
    }
    else if (argc == 7) {
-       /* I don't like to put arguments on new line but is easier to read this time */
+       /* I don't like this, i want to allow to put options in any order */
         if ((strcmp(argv[2],"-client") == 0) &&
             (strcmp(argv[3],"-group") == 0) &&
             (strcmp(argv[5],"-port") == 0)) {
 
             if (strcmp(argv[1],"-v4") == 0) { /* we are using IPv4 */
                 if (is_valid_mcast_ip4(argv[4]) == TRUE ) {
-                        if (atoi(argv[6]) >= 0 && atoi(argv[6]) <= 65535) {
+                        if (atoi(argv[6]) >= 1 && atoi(argv[6]) <= 65535) {
                             /* we are ready , let start the client */
                             mcast_client(argv[4], atoi(argv[6]));
                         }
@@ -328,18 +347,23 @@ int main(int argc, char *argv[]) {
             print_error();
         }
    }
-   else if (argc == 9) {
-        /* I don't like to put arguments on new line but is easier to read this time */
+   else if (argc == 11) {
         if ((strcmp(argv[2],"-server") == 0) &&
             (strcmp(argv[3],"-group") == 0) &&
             (strcmp(argv[5],"-port") == 0) &&
-            (strcmp(argv[7],"-delay") == 0)) {
+            (strcmp(argv[7],"-ttl") == 0) &&
+            (strcmp(argv[9],"-delay") == 0)) {
 
             if (strcmp(argv[1],"-v4") == 0) { /* we are using IPv4 */
                 if (is_valid_mcast_ip4(argv[4]) == TRUE ) {
-                        if (atoi(argv[6]) >= 0 && atoi(argv[6]) <= 65535) {
-                            /* we are ready , let start the server */
-                            mcast_server(argv[4], atoi(argv[6]), atoi(argv[8]));
+                        if (atoi(argv[6]) >= 1 && atoi(argv[6]) <= 65535) {
+                            if(atoi(argv[8]) >= 1 && atoi(argv[8]) <= 255) {
+                                /* we are ready , let start the server */
+                                mcast_server(argv[4], atoi(argv[6]), atoi(argv[10]), atoi(argv[8]));
+                            }
+                            else {
+                                printf("invalid TTL value!\n");
+                            }
                         }
                         else {
                             printf("Invalid port number!\n");
@@ -352,9 +376,14 @@ int main(int argc, char *argv[]) {
             else if (strcmp(argv[1],"-v6") == 0) { /* we are using IPv6 */
                 inet_pton(AF_INET6, argv[4], &ip_address);
                 if (IN6_IS_ADDR_MULTICAST(&ip_address) == TRUE ) {
-                        if (atoi(argv[6]) >= 0 && atoi(argv[6]) <= 65535) {
-                            /* we are ready , let start the server */
-                            mcast6_server(argv[4], atoi(argv[6]), atoi(argv[8]));
+                        if (atoi(argv[6]) >= 1 && atoi(argv[6]) <= 65535) {
+                            if(atoi(argv[8]) >= 1 && atoi(argv[10]) <= 8) {
+                                /* we are ready , let start the server */
+                                mcast6_server(argv[4], atoi(argv[6]), atoi(argv[10]), atoi(argv[8]));
+                            }
+                            else {
+                                printf("invalid TTL value!\n");
+                            }
                         }
                         else {
                             printf("Invalid port number!\n");
@@ -368,7 +397,6 @@ int main(int argc, char *argv[]) {
                 print_error();
             }
         }
-        /* I don't like to put arguments on new line but is easier to read this time */
         else if ((strcmp(argv[2],"-client-ssm") == 0) &&
                  (strcmp(argv[3],"-group") == 0) &&
                  (strcmp(argv[5],"-source") == 0) &&
@@ -376,18 +404,18 @@ int main(int argc, char *argv[]) {
 
             if (strcmp(argv[1],"-v4") == 0) { /* we are using IPv4 */
                 if (is_valid_ssm_ip4(argv[4]) == TRUE ) {
-				        if (is_valid_ip(argv[6]) == AF_INET ) {
-							if (atoi(argv[8]) >= 0 && atoi(argv[8]) <= 65535) {
-								/* we are ready , let start the client */
-								ssm_client(argv[4], argv[6], atoi(argv[8]));
-							}
-							else {
-								printf("Invalid port number!\n");
-                            }
-				        }
-						else {
-							printf("Invalid IP address\n");
-						}
+			if (is_valid_ip(argv[6]) == AF_INET ) {
+				if (atoi(argv[8]) >= 0 && atoi(argv[8]) <= 65535) {
+					/* we are ready , let start the client */
+					ssm_client(argv[4], argv[6], atoi(argv[8]));
+					}
+				else {
+					printf("Invalid port number!\n");
+				}
+			}
+			else {
+				printf("Invalid IP address\n");
+			}
                 }
                 else {
                     printf("Invalid multicast group address!\n");
@@ -396,19 +424,19 @@ int main(int argc, char *argv[]) {
             else if (strcmp(argv[1],"-v6") == 0) { /* we are using IPv6 */
                 inet_pton(AF_INET6, argv[4], &ip_address);
                 if (IN6_IS_ADDR_MULTICAST(&ip_address) == TRUE ) {
-				        if (is_valid_ip(argv[6]) == AF_INET6 ) {
-							if (atoi(argv[8]) >= 0 && atoi(argv[8]) <= 65535) {
-								/* we are ready , let start the client */
-								ssm6_client(argv[4], argv[6], atoi(argv[8]));
-							}
-							else {
-								printf("Invalid port number!\n");
-                            }
-				        }
-						else {
-							printf("Invalid IP address\n");
-						}
-                }
+			if (is_valid_ip(argv[6]) == AF_INET6 ) {
+				if (atoi(argv[8]) >= 0 && atoi(argv[8]) <= 65535) {
+					/* we are ready , let start the client */
+					ssm6_client(argv[4], argv[6], atoi(argv[8]));
+				}
+				else {
+					printf("Invalid port number!\n");
+				}
+			}
+			else {
+				printf("Invalid IP address\n");
+			}
+		}
                 else {
                     printf("Invalid multicast group address!\n");
                 }
