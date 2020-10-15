@@ -11,7 +11,7 @@ AM_CFLAGS =\
 	 -g
 
 if PLATFORM_WIN32
-AM_LDFLAGS += -lws2_32
+AM_LDFLAGS = -lws2_32
 endif
 
 bin_PROGRAMS = multicast
