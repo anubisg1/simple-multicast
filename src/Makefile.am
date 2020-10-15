@@ -22,7 +22,8 @@ multicast_SOURCES = \
 	mcast-client.h \
 	ssm-client.c \
 	mcast-server.c \
-	mcast-server.h
+	mcast-server.h \
+	inet_pton.c
 	
 multicast_LDFLAGS = 
 
