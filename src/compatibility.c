@@ -1,6 +1,6 @@
 /*
 * compatibility.c
-* Copyright (C) Andrea Florio 2013 <andrea@opensuse.org>
+* Copyright (C) Andrea Florio 2020 <andrea@opensuse.org>
 *
 * This Project is free software: you can redistribute it and/or modify it
 * under the terms of the GNU General Public License as published by the

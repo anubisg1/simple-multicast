@@ -1,6 +1,6 @@
 /*
 * mcast-server.c
-* Copyright (C) Andrea Florio 2013 <andrea@opensuse.org>
+* Copyright (C) Andrea Florio 2020 <andrea@opensuse.org>
 *
 * This Project is free software: you can redistribute it and/or modify it
 * under the terms of the GNU General Public License as published by the
@@ -20,7 +20,7 @@
 #include <time.h>                   // Required for time_t type and time() function
 #include <stdio.h>                  // Required for printf() and sprintf()
 #include <unistd.h>                 // Required for sleep()
-#include <string.h>					// Required for memset()
+#include <string.h>                 // Required for memset()
 #include "mcast-server.h"           // Required for socks specific headers
 
 int mcast_server(const char *mcast_group, int destination_port, int delay_s, int ttl ) {

@@ -1,6 +1,6 @@
 /*
 * main.c
-* Copyright (C) Andrea Florio 2013 <andrea@opensuse.org>
+* Copyright (C) Andrea Florio 2020 <andrea@opensuse.org>
 *
 * This Project is free software: you can redistribute it and/or modify it
 * under the terms of the GNU General Public License as published by the
@@ -25,7 +25,7 @@
 #include "ipv6/mcast6-server.h"
 #include "ipv6/mcast6-client.h"
 
-#define VERSION "0.2.5"
+#define VERSION "0.2.5.1"
 
 void clean_screen() {
 /* FIX ME - I don't like this solution */

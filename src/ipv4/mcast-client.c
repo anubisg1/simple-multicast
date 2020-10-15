@@ -1,6 +1,6 @@
 /*
 * mcast-client.c
-* Copyright (C) Andrea Florio 2013 <andrea@opensuse.org>
+* Copyright (C) Andrea Florio 2020 <andrea@opensuse.org>
 *
 * This Project is free software: you can redistribute it and/or modify it
 * under the terms of the GNU General Public License as published by the
@@ -17,7 +17,7 @@
 */
 
 #include <stdio.h>                  // Required for printf(), sprintf() and perror)
-#include <string.h>					// Required for memset()
+#include <string.h>                 // Required for memset()
 #include "mcast-client.h"           // Required for socks specific headers
 
 int mcast_client(const char *mcast_group, int receiving_port) {

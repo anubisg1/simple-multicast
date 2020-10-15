@@ -6,11 +6,11 @@
 * \author Andrea Florio <andrea@opensuse.org>
 *
 * \version 0.1
-* \date 2013
+* \date 2020
 *
 * \section License
-* Copyright (C) 2013 \n
-* <b>Andrea Florio 2013 <andrea@opensuse.org></b> \n
+* Copyright (C) 2020 \n
+* <b>Andrea Florio 2020 <andrea@opensuse.org></b> \n
 *
 * This Project is free software: you can redistribute it and/or modify it
 * under the terms of the GNU General Public License as published by the \n
