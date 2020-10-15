@@ -28,9 +28,9 @@
 void clean_screen() {
 /* FIX ME - I don't like this solution */
 #ifdef _WIN32
-   system("cls");
+   if(system("cls")){};
 #else
-   system("clear");
+   if(system("clear")){};
 #endif
 }
 
@@ -92,21 +92,21 @@ void interactive_menu() {
     printf("6. IPv6 - Source Specific Multicast Client\n");
     printf("7. Exit\n");
     printf("Enter your choice: ");
-    scanf("%s", choice);
+    if(scanf("%s", choice)){};
 
     if (strcmp(choice,"1") == 0 ) {
         printf("Enter the multicast destination address, in case of SSM\n");
         printf("the IP must be in the range 232.0.0.0/8: ");
-        scanf("%s", mcast_group);
+        if(scanf("%s", mcast_group)){};
         if (is_valid_mcast_ip4(mcast_group) == TRUE ) {
             printf("Enter the destination port number: ");
-            scanf("%d", &destination_port);
+            if(scanf("%d", &destination_port)){};
             if (destination_port >= 0 && destination_port <= 65535) {
                     printf("Enter the TTL value: ");
-                    scanf("%d", &ttl);
+                    if(scanf("%d", &ttl)){};
                     if (ttl >= 1 && ttl <= 255) {
                         printf("Enter the interval between packets in seconds: ");
-                        scanf("%d", &delay);
+                        if(scanf("%d", &delay)){};
                         /* we are ready , let start the server */
                         mcast_server4(mcast_group, destination_port, delay, ttl);
                         
@@ -128,11 +128,11 @@ void interactive_menu() {
     }
     else if (strcmp(choice,"2") == 0 ) {
         printf("Enter the multicast group address to join: ");
-        scanf("%s", mcast_group);
+        if(scanf("%s", mcast_group)){};
 
         if (is_valid_mcast_ip4(mcast_group) == TRUE ) {
             printf("Enter the port number to listen to: ");
-            scanf("%d", &destination_port);
+            if(scanf("%d", &destination_port)){};
             if (destination_port >= 0 && destination_port <= 65535) {
 
                     /* we are ready , let start the client */
@@ -151,15 +151,15 @@ void interactive_menu() {
     else if (strcmp(choice,"3") == 0 ) {
         printf("Enter the multicast group address to join,\n");
         printf("the IP must be in the range 232.0.0.0/8: ");
-        scanf("%s", mcast_group);
+        if(scanf("%s", mcast_group)){};
 
         if (is_valid_ssm_ip4(mcast_group) == TRUE ) {
             printf("Enter the ip address of the authorized source: ");
-            scanf("%s", ssm_source);
+            if(scanf("%s", ssm_source)){};
 
             if (is_valid_ip(ssm_source) == AF_INET ) {
                     printf("Enter the destination port number: ");
-                    scanf("%d", &destination_port);
+                    if(scanf("%d", &destination_port)){};
                     if (destination_port >= 0 && destination_port <= 65535) {
 
                         /* we are ready , let start the client */
@@ -182,18 +182,18 @@ void interactive_menu() {
     else if (strcmp(choice,"4") == 0 ) {
         printf("Enter the multicast destination address, in case of SSM\n");
         printf("the IP must be in the range FF3x::/32: ");
-        scanf("%s", mcast_group);
+        if(scanf("%s", mcast_group)){};
 
         inet_pton(AF_INET6, mcast_group, &ip_address);
         if (IN6_IS_ADDR_MULTICAST(&ip_address) == TRUE ) {
             printf("Enter the destination port number: ");
-            scanf("%d", &destination_port);
+            if(scanf("%d", &destination_port)){};
             if (destination_port >= 0 && destination_port <= 65535) {
                     printf("Enter the TTL value: ");
-                    scanf("%d", &ttl);
+                    if(scanf("%d", &ttl)){};
                     if (ttl >= 1 && ttl <= 255) {
                         printf("Enter the interval between packets in seconds: ");
-                        scanf("%d", &delay);
+                        if(scanf("%d", &delay)){};
                         /* we are ready , let start the server */
                         mcast_server6(mcast_group, destination_port, delay, ttl);
                         
@@ -215,12 +215,12 @@ void interactive_menu() {
     }
     else if (strcmp(choice,"5") == 0 ) {
         printf("Enter the multicast group address to join: ");
-        scanf("%s", mcast_group);
+        if(scanf("%s", mcast_group)){};
 
         inet_pton(AF_INET6, mcast_group, &ip_address);
         if (IN6_IS_ADDR_MULTICAST(&ip_address) == TRUE ) {
 			printf("Enter the port number to listen to: ");
-            scanf("%d", &destination_port);
+            if(scanf("%d", &destination_port)){};
             if (destination_port >= 0 && destination_port <= 65535) {
 
                     /* we are ready , let start the client */
@@ -242,16 +242,16 @@ void interactive_menu() {
         printf("Enter the multicast destination address,\n");
         printf("the IP must be in the range FF3x::/32: ");
 
-        scanf("%s", mcast_group);
+        if(scanf("%s", mcast_group)){};
 
         inet_pton(AF_INET6, mcast_group, &ip_address);
         if (IN6_IS_ADDR_MULTICAST(&ip_address) == TRUE ) {
             printf("Enter the ip address of the authorized source: ");
-            scanf("%s", ssm_source);
+            if(scanf("%s", ssm_source)){};
 
             if (is_valid_ip(ssm_source) == AF_INET6 ) {
                     printf("Enter the destination port number: ");
-                    scanf("%d", &destination_port);
+                    if(scanf("%d", &destination_port)){};
                     if (destination_port >= 0 && destination_port <= 65535) {
 
                         // we are ready , let start the client
