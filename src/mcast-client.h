@@ -44,7 +44,7 @@
 */
 int mcast_client4(const char *mcast_group, int receiving_port);
 
-/** \fn int mcast6_client(const char *mcast_group, int receiving_port);
+/** \fn int mcast_client6(const char *mcast_group, int receiving_port);
 * Executes multicast client application. Supports IPv6 only
 *
 * \param mcast_group Is a string containing the multicast group address.
