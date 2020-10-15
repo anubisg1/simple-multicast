@@ -57,12 +57,12 @@ typedef int bool;
  *  Windows version must be >= XP or getaddrinfo() will not be supported.
  */
 #define _WIN32_WINNT 0x0501
-#endif // _WIN32_WINNT
 
 #include <winsock2.h>
 #include <windows.h>
 #include <Ws2tcpip.h>
 #include <unistd.h>
+#include <stdint.h>
 
 /** \fn void sleep(int delay_s);
 * A wrapper for Windows. converts Unix sleep() to windows Sleep()
