@@ -30,11 +30,13 @@
 const struct in6_addr in6addr_any = {{ IN6ADDR_ANY_INIT }};
 const struct in6_addr in6addr_loopback = {{ IN6ADDR_LOOPBACK_INIT }};
 
-/* we convert seconds in milliseconds and we call windows Sleep */
+/* we convert seconds in milliseconds and we call windows Sleep
+ * Apparently no longer needed with newer version on minGW
 void sleep(int delay_s) {
     int ms = 1000*delay_s;
     Sleep(ms);
 }
+*/
 
 const char *inet_ntop(int af, const void *src, char *dst, socklen_t cnt) {
         if (af == AF_INET) {

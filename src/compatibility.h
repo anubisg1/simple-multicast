@@ -52,15 +52,15 @@ typedef int bool;
 #define SOURCE_PORT  0
 
 #ifdef _WIN32
-#ifndef _WIN32_WINNT
+#undef _WIN32_WINNT
 /** \def _WIN32_WINNT 0x0501
  *  Windows version must be >= XP or getaddrinfo() will not be supported.
  */
 #define _WIN32_WINNT 0x0501
 #endif // _WIN32_WINNT
 
-#include <windows.h>
 #include <winsock2.h>
+#include <windows.h>
 #include <Ws2tcpip.h>
 #include <unistd.h>
 
@@ -70,7 +70,7 @@ typedef int bool;
 * \param delay_s Is a int indicating how long to sleep.
 *
 */
-void sleep(int delay_s);
+// void sleep(int delay_s);
 
 /* wrapper for windows */
 const char *inet_ntop(int af, const void *src, char *dst, socklen_t cnt);
