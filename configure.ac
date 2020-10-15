@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 
-AC_INIT([multicast], [0.2.5.1], [https://github.com/anubisg1/simple-multicast])
+AC_INIT([multicast], [0.2.5.2], [https://github.com/anubisg1/simple-multicast])
 
 AC_CONFIG_HEADERS([config.h])
 

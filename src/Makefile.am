@@ -18,16 +18,11 @@ multicast_SOURCES = \
 	compatibility.h \
 	testip.c \
 	testip.h \
-	ipv4/mcast-client.c \
-	ipv4/mcast-client.h \
-	ipv4/mcast-server.c \
-	ipv4/mcast-server.h \
-	ipv4/ssm-client.c \
-	ipv6/mcast6-client.c \
-	ipv6/mcast6-client.h \
-	ipv6/mcast6-server.c \
-	ipv6/mcast6-server.h \
-	ipv6/ssm6-client.c 
+	mcast-client.c \
+	mcast-client.h \
+	ssm-client.c \
+	mcast-server.c \
+	mcast-server.h
 	
 multicast_LDFLAGS = 
 

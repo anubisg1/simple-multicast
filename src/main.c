@@ -18,14 +18,12 @@
 
 #include <stdio.h>                  // Required for printf() and sprintf()
 #include <string.h>                 // Required for strcmp()
-#include <stdlib.h>		            // Required for system()
-#include "ipv4/mcast-server.h"
-#include "ipv4/mcast-client.h"
+#include <stdlib.h>                 // Required for system()
+#include "mcast-server.h"
+#include "mcast-client.h"
 #include "testip.h"
-#include "ipv6/mcast6-server.h"
-#include "ipv6/mcast6-client.h"
 
-#define VERSION "0.2.5.1"
+#define VERSION "0.2.5.2"
 
 void clean_screen() {
 /* FIX ME - I don't like this solution */
@@ -46,8 +44,8 @@ void press_enter_to_continue() {
 
 void print_help() {
     printf("Usage: ./multicast [PROTOCOL] [OPERATIONAL MODE] [OPTION] [OPTION] ... \n\n");
-	printf("  --version\tprint current version and exit\n");
-	printf("  --help\tprint this help and exit\n\n");
+    printf("  --version\tprint current version and exit\n");
+    printf("  --help\tprint this help and exit\n\n");
     printf("Run without arguments to run the interactive console.\n");
     printf("To run without interaction, use the options below.\n");
     printf("One per each group is required.\n\n");
@@ -110,7 +108,7 @@ void interactive_menu() {
                         printf("Enter the interval between packets in seconds: ");
                         scanf("%d", &delay);
                         /* we are ready , let start the server */
-                        mcast_server(mcast_group, destination_port, delay, ttl);
+                        mcast_server4(mcast_group, destination_port, delay, ttl);
                         
                     }
                     else {
@@ -138,7 +136,7 @@ void interactive_menu() {
             if (destination_port >= 0 && destination_port <= 65535) {
 
                     /* we are ready , let start the client */
-                    mcast_client(mcast_group, destination_port);
+                    mcast_client4(mcast_group, destination_port);
             }
             else {
                     printf("Invalid port number!\n");
@@ -165,7 +163,7 @@ void interactive_menu() {
                     if (destination_port >= 0 && destination_port <= 65535) {
 
                         /* we are ready , let start the client */
-                        ssm_client(mcast_group, ssm_source, destination_port);
+                        ssm_client4(mcast_group, ssm_source, destination_port);
                     }
                     else {
                         printf("Invalid port number!\n");
@@ -197,7 +195,7 @@ void interactive_menu() {
                         printf("Enter the interval between packets in seconds: ");
                         scanf("%d", &delay);
                         /* we are ready , let start the server */
-                        mcast6_server(mcast_group, destination_port, delay, ttl);
+                        mcast_server6(mcast_group, destination_port, delay, ttl);
                         
                     }
                     else {
@@ -226,7 +224,7 @@ void interactive_menu() {
             if (destination_port >= 0 && destination_port <= 65535) {
 
                     /* we are ready , let start the client */
-                    mcast6_client(mcast_group, destination_port);
+                    mcast_client6(mcast_group, destination_port);
             }
             else {
                     printf("Invalid port number!\n");
@@ -257,7 +255,7 @@ void interactive_menu() {
                     if (destination_port >= 0 && destination_port <= 65535) {
 
                         // we are ready , let start the client
-                        ssm6_client(mcast_group, ssm_source, destination_port);
+                        ssm_client6(mcast_group, ssm_source, destination_port);
                     }
                     else {
                         printf("Invalid port number!\n");
@@ -313,7 +311,7 @@ int main(int argc, char *argv[]) {
                 if (is_valid_mcast_ip4(argv[4]) == TRUE ) {
                         if (atoi(argv[6]) >= 1 && atoi(argv[6]) <= 65535) {
                             /* we are ready , let start the client */
-                            mcast_client(argv[4], atoi(argv[6]));
+                            mcast_client4(argv[4], atoi(argv[6]));
                         }
                         else {
                             printf("Invalid port number!\n");
@@ -328,7 +326,7 @@ int main(int argc, char *argv[]) {
                 if (IN6_IS_ADDR_MULTICAST(&ip_address) == TRUE ) {
                         if (atoi(argv[6]) >= 0 && atoi(argv[6]) <= 65535) {
                             /* we are ready , let start the client */
-                            mcast6_client(argv[4], atoi(argv[6]));
+                            mcast_client6(argv[4], atoi(argv[6]));
                         }
                         else {
                             printf("Invalid port number!\n");
@@ -359,7 +357,7 @@ int main(int argc, char *argv[]) {
                         if (atoi(argv[6]) >= 1 && atoi(argv[6]) <= 65535) {
                             if(atoi(argv[8]) >= 1 && atoi(argv[8]) <= 255) {
                                 /* we are ready , let start the server */
-                                mcast_server(argv[4], atoi(argv[6]), atoi(argv[10]), atoi(argv[8]));
+                                mcast_server4(argv[4], atoi(argv[6]), atoi(argv[10]), atoi(argv[8]));
                             }
                             else {
                                 printf("invalid TTL value!\n");
@@ -379,7 +377,7 @@ int main(int argc, char *argv[]) {
                         if (atoi(argv[6]) >= 1 && atoi(argv[6]) <= 65535) {
                             if(atoi(argv[8]) >= 1 && atoi(argv[10]) <= 8) {
                                 /* we are ready , let start the server */
-                                mcast6_server(argv[4], atoi(argv[6]), atoi(argv[10]), atoi(argv[8]));
+                                mcast_server6(argv[4], atoi(argv[6]), atoi(argv[10]), atoi(argv[8]));
                             }
                             else {
                                 printf("invalid TTL value!\n");
@@ -407,7 +405,7 @@ int main(int argc, char *argv[]) {
 			if (is_valid_ip(argv[6]) == AF_INET ) {
 				if (atoi(argv[8]) >= 0 && atoi(argv[8]) <= 65535) {
 					/* we are ready , let start the client */
-					ssm_client(argv[4], argv[6], atoi(argv[8]));
+					ssm_client4(argv[4], argv[6], atoi(argv[8]));
 					}
 				else {
 					printf("Invalid port number!\n");
@@ -427,7 +425,7 @@ int main(int argc, char *argv[]) {
 			if (is_valid_ip(argv[6]) == AF_INET6 ) {
 				if (atoi(argv[8]) >= 0 && atoi(argv[8]) <= 65535) {
 					/* we are ready , let start the client */
-					ssm6_client(argv[4], argv[6], atoi(argv[8]));
+					ssm_client6(argv[4], argv[6], atoi(argv[8]));
 				}
 				else {
 					printf("Invalid port number!\n");

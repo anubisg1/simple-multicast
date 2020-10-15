@@ -1,5 +1,5 @@
 /**
-* \file mcast6-client.h
+* \file mcast-client.h
 *
 * \brief Mulitcast client definitions
 *
@@ -26,10 +26,23 @@
 * with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __MCAST6_CLIENT_H__
-#define __MCAST6_CLIENT_H__
+#ifndef __MCAST_CLIENT_H__
+#define __MCAST_CLIENT_H__
 
-#include "../compatibility.h"
+#include "compatibility.h"
+
+
+/** \fn int mcast_client4(const char *mcast_group, int receiving_port);
+* Executes multicast client application. Supports IPv4 only
+*
+* \param mcast_group Is a string containing the multicast group address.
+*
+* \param receiving_port Is an int containing the UDP port number the client will listen to.
+*
+* \return #FALSE in case of error and the description where error occurred.
+* In case of success the function will loop and never reach the end
+*/
+int mcast_client4(const char *mcast_group, int receiving_port);
 
 /** \fn int mcast6_client(const char *mcast_group, int receiving_port);
 * Executes multicast client application. Supports IPv6 only
@@ -41,9 +54,23 @@
 * \return #FALSE in case of error and the description where error occurred.
 * In case of success the function will loop and never reach the end
 */
-int mcast6_client(const char *mcast_group, int receiving_port);
+int mcast_client6(const char *mcast_group, int receiving_port);
 
-/** \fn int ssm6_client(const char *mcast_group, const char *ssm_source, int receiving_port);
+/** \fn int ssm_client4(const char *mcast_group, const char *ssm_source, int receiving_port);
+* Executes source specific multicast client application. Supports IPv4 only
+*
+* \param mcast_group Is a string containing the multicast group address.
+*
+* \param ssm_source Is a string containing the authorized source ip address.
+*
+* \param receiving_port Is an int containing the UDP port number the client will listen to.
+*
+* \return #FALSE in case of error and the description where error occurred.
+* In case of success the function will loop and never reach the end
+*/
+int ssm_client4(const char *mcast_group, const char *ssm_source, int receiving_port);
+
+/** \fn int ssm_client6(const char *mcast_group, const char *ssm_source, int receiving_port);
 * Executes source specific multicast client application. Supports IPv6 only
 *
 * \param mcast_group Is a string containing the multicast group address.
@@ -55,6 +82,6 @@ int mcast6_client(const char *mcast_group, int receiving_port);
 * \return #FALSE in case of error and the description where error occurred.
 * In case of success the function will loop and never reach the end
 */
-int ssm6_client(const char *mcast_group, const char *ssm_source, int receiving_port);
+int ssm_client6(const char *mcast_group, const char *ssm_source, int receiving_port);
 
 #endif

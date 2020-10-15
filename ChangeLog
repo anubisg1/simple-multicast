@@ -1,3 +1,6 @@
+0.2.5.2
+* Code rebase and cleanup
+
 0.2.5
 
 * Do not hardcode the TTL, allow users to provide the desired value
