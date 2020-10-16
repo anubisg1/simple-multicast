@@ -38,6 +38,7 @@
 * https://play.google.com/store/apps/details?id=com.n0n3m4.droidc&hl=en )
 */
 
+#include <../config.h>
 #ifndef __COMPATIBILITY_H__
 #define __COMPATIBILITY_H__
 
@@ -63,6 +64,9 @@ typedef int bool;
 #include <Ws2tcpip.h>
 #include <unistd.h>
 #include <stdint.h>
+#ifdef HAVE_WS2IPDEF_H
+#include <ws2ipdef.h>
+#end
 
 /** \fn void sleep(int delay_s);
 * A wrapper for Windows. converts Unix sleep() to windows Sleep()
@@ -166,11 +170,13 @@ int j_inet_pton(const char *src, SOCKADDR_STORAGE *dst);
 /** \struct struct group_source_req;
 * If it doesn't exist, we manually define a protocol indipendent struct according to RFC 3768
 */
+#ifndef HAVE_WS2IPDEF_H
 struct group_source_req {
   uint32_t         gsr_interface; /* interface index */
   SOCKADDR_STORAGE gsr_group;     /* group address */
   SOCKADDR_STORAGE gsr_source;    /* source address */
 };
+#endif // HAVE_WS2IPDEF_H
 #endif // MCAST_JOIN_SOURCE_GROUP
 
 #endif
