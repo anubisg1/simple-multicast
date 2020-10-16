@@ -11,7 +11,7 @@ AM_CFLAGS =\
 	 -g
 
 if PLATFORM_WIN32
-AM_LDFLAGS = -lws2_32
+ AM_LDADD = -lws2_32
 endif
 
 bin_PROGRAMS = multicast
@@ -29,7 +29,6 @@ multicast_SOURCES = \
 	mcast-server.h \
 	inet_pton.c
 	
-multicast_LDFLAGS = 
+multicast_LDFLAGS =
 
-multicast_LDADD = 
-
+multicast_LDADD = $(AM_LDADD)
