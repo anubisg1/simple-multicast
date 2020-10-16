@@ -66,7 +66,7 @@ typedef int bool;
 #include <stdint.h>
 #ifdef HAVE_WS2IPDEF_H
 #include <ws2ipdef.h>
-#end
+#endif
 
 /** \fn void sleep(int delay_s);
 * A wrapper for Windows. converts Unix sleep() to windows Sleep()
