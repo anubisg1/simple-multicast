@@ -23,8 +23,6 @@
 #include "mcast-client.h"
 #include "testip.h"
 
-#define VERSION "0.2.5.2"
-
 void clean_screen() {
 /* FIX ME - I don't like this solution */
 #ifdef _WIN32
