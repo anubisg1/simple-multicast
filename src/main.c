@@ -293,7 +293,8 @@ int main(int argc, char *argv[]) {
             print_help();
         }
         else if (strcmp(argv[1],"--version") == 0) {
-            printf("version %s\n",  VERSION);
+            printf("simple-%s - version %s\n", PACKAGE_NAME, PACKAGE_VERSION);
+	    printf("\nWritten by Andrea Florio <andrea@opensuse.org>\n");
         }
         else {
             print_error();
