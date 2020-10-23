@@ -7,4 +7,4 @@ Supports:
 
 Builds on Windows, *unix (tested on linux only), and Android.
 For android you can use c4droid https://play.google.com/store/apps/details?id=com.n0n3m4.droidc&hl=en
-to compile make sure to select GCC instead of the standard G++
+to compile make sure to select GCC instead of the default G++
