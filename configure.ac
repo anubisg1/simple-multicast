@@ -38,7 +38,7 @@ case $host_os in
     platform_win32=yes
     native_win32=yes
     ;;
-  pw32* | *cygwin*)
+  pw32* | *cygwin* | *msys* )
     platform_win32=yes
     native_win32=no
     ;;
@@ -50,6 +50,14 @@ esac
 AM_CONDITIONAL(PLATFORM_WIN32, test x"$platform_win32" = "xyes")
 AM_CONDITIONAL(NATIVE_WIN32, test x"$native_win32" = "xyes")
 
+
+if test "x$platform_win32" = "xyes"; then
+	AC_CHECK_HEADERS([argp.h])
+	AC_CHECK_LIB(argp, argp_parse, [], [
+		echo "Error! You must have libargp on windows!"
+		exit -1
+		])
+fi
 
 AC_OUTPUT([
 Makefile
