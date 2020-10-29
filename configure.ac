@@ -49,8 +49,11 @@ AM_CONDITIONAL(NATIVE_WIN32, test x"$native_win32" = "xyes")
 
 
 if test "x$platform_win32" = "xyes"; then
+	AC_CHECK_HEADERS([winsock2.h])
 	AC_CHECK_HEADERS([ws2ipdef.h], [], [],
-	[[#include <winsock2.h>
+	[[#ifdef HAVE_WINSOCK2_H
+	 #include <winsock2.h>
+	 #endif
 	]])
 	AC_CHECK_HEADERS([argp.h])
 	AC_CHECK_LIB(argp, argp_parse, [], [
