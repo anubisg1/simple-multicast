@@ -22,6 +22,11 @@
 #include "mcast-server.h"
 #include "mcast-client.h"
 #include "testip.h"
+#ifdef HAVE_ARGP_H
+#include <argp.h>
+#else
+#include "../libargp/gllib/argp.h"
+#endif
 
 void clean_screen() {
 /* FIX ME - I don't like this solution */

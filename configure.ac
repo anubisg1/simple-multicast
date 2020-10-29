@@ -3,15 +3,12 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([multicast], [0.2.5.2], [https://github.com/anubisg1/simple-multicast])
 
 AC_CONFIG_HEADERS([config.h])
-AC_CHECK_HEADERS([ws2ipdef.h], [], [],
-[[#include <winsock2.h>
-]])
-
+AC_CONFIG_AUX_DIR([.])
 AM_INIT_AUTOMAKE([1.11])
-
 AM_SILENT_RULES([yes])
-
 AC_PROG_CC
+LT_INIT([win32-dll])
+AC_CONFIG_SUBDIRS([libargp])
 
 ######################################################################
 # DOXYGEN SUPPORT
@@ -52,10 +49,13 @@ AM_CONDITIONAL(NATIVE_WIN32, test x"$native_win32" = "xyes")
 
 
 if test "x$platform_win32" = "xyes"; then
+	AC_CHECK_HEADERS([ws2ipdef.h], [], [],
+	[[#include <winsock2.h>
+	]])
 	AC_CHECK_HEADERS([argp.h])
 	AC_CHECK_LIB(argp, argp_parse, [], [
 		echo "Error! You must have libargp on windows!"
-		exit -1
+		#exit -1
 		])
 fi
 

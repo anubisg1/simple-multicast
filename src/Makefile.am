@@ -31,4 +31,4 @@ multicast_SOURCES = \
 	
 multicast_LDFLAGS =
 
-multicast_LDADD = $(AM_LDADD)
+multicast_LDADD = $(AM_LDADD) ../libargp/gllib/libargp.la
