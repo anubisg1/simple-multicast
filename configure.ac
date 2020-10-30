@@ -56,8 +56,10 @@ AM_COND_IF([PLATFORM_WIN32], [
 	 ]])
 
 	AC_MSG_CHECKING([whether to enable libargp])
-	AC_ARG_WITH(argp, [ --with-argp 		build also libargp],
-		    with_argp=$withval, with_argp=no)
+	AC_ARG_WITH(argp,
+		    AS_HELP_STRING([--with-argp], [build against the shipped libargp]),
+		    with_argp=$withval,
+		    with_argp=no)
 	AC_MSG_RESULT($with_argp)
 #	AM_CONDITIONAL([WITH_ARGP], [test "$with_argp" = yes])
 
