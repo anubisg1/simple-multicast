@@ -11,7 +11,11 @@ AM_CFLAGS =\
 	 -g
 
 if PLATFORM_WIN32
- AM_LDADD = -lws2_32
+if WITH_ARGP
+ AM_LDADD = -lws2_32 ../libargp/gllib/libargp.la
+else
+ AM_LDADD = -lws2_32 -largp
+endif
 endif
 
 bin_PROGRAMS = multicast
@@ -31,4 +35,4 @@ multicast_SOURCES = \
 	
 multicast_LDFLAGS =
 
-multicast_LDADD = $(AM_LDADD) ../libargp/gllib/libargp.la
+multicast_LDADD = $(AM_LDADD)

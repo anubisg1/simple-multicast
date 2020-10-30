@@ -2,7 +2,11 @@
 
 include $(top_srcdir)/aminclude.am
 
-SUBDIRS = libargp src
+if WITH_ARGP
+ LIBARGP = libargp
+endif
+
+SUBDIRS = $(LIBARGP) src
 
 EXTRA_DIST = \
 	doxygen.cfg \
