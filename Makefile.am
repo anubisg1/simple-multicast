@@ -2,8 +2,10 @@
 
 include $(top_srcdir)/aminclude.am
 
+if PLATFORM_WIN32
 if WITH_ARGP
  LIBARGP = libargp
+endif
 endif
 
 SUBDIRS = $(LIBARGP) src
