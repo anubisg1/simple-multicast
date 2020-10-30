@@ -45,6 +45,7 @@ case $host_os in
 esac
 AM_CONDITIONAL(PLATFORM_WIN32, test x"$platform_win32" = "xyes")
 AM_CONDITIONAL(NATIVE_WIN32, test x"$native_win32" = "xyes")
+AM_CONDITIONAL([WITH_ARGP], [test "$with_argp" = yes])
 
 AM_COND_IF([PLATFORM_WIN32], [
 	AC_CHECK_HEADERS([winsock2.h])
@@ -55,10 +56,10 @@ AM_COND_IF([PLATFORM_WIN32], [
 	 ]])
 
 	AC_MSG_CHECKING([whether to enable libargp])
-	AC_ARG_WITH(argp, [ --with-argp 	build also libargp],
+	AC_ARG_WITH(argp, [ --with-argp 		build also libargp],
 		    with_argp=$withval, with_argp=no)
 	AC_MSG_RESULT($with_argp)
-	AM_CONDITIONAL([WITH_ARGP], [test "$with_argp" = yes])
+#	AM_CONDITIONAL([WITH_ARGP], [test "$with_argp" = yes])
 
 	AM_COND_IF([WITH_ARGP], AC_CONFIG_SUBDIRS([libargp]), [
 		AC_CHECK_HEADERS([argp.h])
