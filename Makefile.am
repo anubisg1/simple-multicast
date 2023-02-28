@@ -2,7 +2,13 @@
 
 include $(top_srcdir)/aminclude.am
 
-SUBDIRS = src 
+if PLATFORM_WIN32
+if WITH_ARGP
+ LIBARGP = libargp
+endif
+endif
+
+SUBDIRS = $(LIBARGP) src
 
 EXTRA_DIST = \
 	doxygen.cfg \
@@ -15,8 +21,6 @@ dist_doc_DATA = \
 	ChangeLog \
 	INSTALL \
 	NEWS
-
-
 
 # Remove doc directory on uninstall
 uninstall-local:

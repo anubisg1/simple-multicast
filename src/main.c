@@ -22,6 +22,11 @@
 #include "mcast-server.h"
 #include "mcast-client.h"
 #include "testip.h"
+#ifdef HAVE_ARGP_H
+#include <argp.h>
+#else
+#include "../libargp/gllib/argp.h"
+#endif
 
 void clean_screen() {
 /* FIX ME - I don't like this solution */
@@ -42,7 +47,7 @@ void press_enter_to_continue() {
 
 void print_help() {
     printf("Usage: ./multicast [PROTOCOL] [OPERATIONAL MODE] [OPTION] [OPTION] ... \n\n");
-    printf("  --version\tprint current version and exit\n");
+    printf("  -V, --version\tprint current version and exit\n");
     printf("  --help\tprint this help and exit\n\n");
     printf("Run without arguments to run the interactive console.\n");
     printf("To run without interaction, use the options below.\n");
@@ -292,7 +297,7 @@ int main(int argc, char *argv[]) {
         if (strcmp(argv[1],"--help") == 0) {
             print_help();
         }
-        else if (strcmp(argv[1],"--version") == 0) {
+        else if ((strcmp(argv[1],"--version") == 0) || (strcmp(argv[1],"-V")) ) {
             printf("simple-%s - version %s\n", PACKAGE_NAME, PACKAGE_VERSION);
 	    printf("\nWritten by Andrea Florio <andrea@opensuse.org>\n");
         }
